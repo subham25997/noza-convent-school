@@ -58,7 +58,7 @@ export default function LeadershipMessages() {
               whileInView={animationMap[card.animation].animate}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="text-center bg-white p-8 shadow-[0_35px_120px_-50px_rgba(15,23,42,0.12)]"
+              className="text-center border border-gray-50 bg-lime-800/30 p-8 rounded-xl"
             >
               <span className="inline-flex bg-amber-100 px-4 py-1 text-sm font-semibold uppercase tracking-[0.24em] text-amber-600">
                 {card.role}
@@ -72,9 +72,9 @@ export default function LeadershipMessages() {
                   />
                 </div>
               </div>
-              <h3 className="mt-8 pb-3 border-b border-b-amber-500 text-center text-amber-500 text-lg md:text-xl font-semibold">{card.name}</h3>
-              <p className="mt-4 pb-4 border-b border-b-amber-500 text-justify text-gray-700 leading-relaxed">{card.message}</p>
-              <p className="mt-6 text-sm uppercase tracking-[0.22em] text-slate-500">"{card.quote}"</p>
+              <h3 className="mt-8 pb-3 border-b border-b-amber-500 text-center text-white text-lg md:text-xl font-semibold">{card.name}</h3>
+              <p className="mt-4 pb-4 border-b border-b-amber-500 text-justify text-gray-50 leading-relaxed">{card.message}</p>
+              <p className="mt-6 text-sm uppercase tracking-[0.22em] text-gray-100">"{card.quote}"</p>
             </motion.div>
           ))}
         </div>

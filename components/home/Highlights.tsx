@@ -63,7 +63,7 @@ const items = [
 
 export default function Highlights() {
   return (
-    <section className="bg-slate-50 py-16 sm:py-20 lg:py-24">
+    <section className="bg-slate-50 py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

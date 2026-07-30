@@ -19,8 +19,8 @@ export default function Home() {
       <MomentsSection />
       <Highlights />
       <LeadershipMessages />
-      <FAQs />
       <CTASection />
+      <FAQs />
     </main>
   )
 }
