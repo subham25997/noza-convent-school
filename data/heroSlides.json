@@ -1,0 +1,28 @@
+[
+  {
+    "src": "/images/school.jpeg",
+    "title": "Noza Convent School",
+    "description": "An English medium co-educational CBSE standard, offering classes from Nursery to 10th grade.",
+    "location": "Maniar, Chhitoni, Dewrar, Uttar Pradesh 277302"
+  },
+  {
+    "src": "/images/computer-lab.jpeg",
+    "title": "Future-Ready Technology",
+    "description": "Empowering students with hands-on computing and digital literacy in our modern lab."
+  },
+  {
+    "src": "/images/park.jpeg",
+    "title": "Safe Green Campus",
+    "description": "A serene and secure campus that encourages outdoor learning and student wellbeing."
+  },
+  {
+    "src": "/images/sports.jpeg",
+    "title": "Active Sports Culture",
+    "description": "Building leadership and fitness through a wide range of games and physical activities."
+  },
+  {
+    "src": "/images/school-vans.jpeg",
+    "title": "Safe Transport Network",
+    "description": "Convenient, reliable transport for students across the region."
+  }
+]

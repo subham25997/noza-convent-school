@@ -1,0 +1,33 @@
+{
+  "section": {
+    "eyebrow": "Leadership Messages",
+    "heading": "A unified vision for learning, care, and growth.",
+    "description": "Our principal, manager, and coordinator share one mission: to shape confident, respectful students in a school environment rooted in values, excellence and community."
+  },
+  "cards": [
+    {
+      "role": "Manager’s Message",
+      "name": "Mrs. Ranju Singh",
+      "img": "/images/manager.jpg",
+      "message": "Leadership at Noza Convent School means nurturing every student with clarity, care, and a purposeful direction. We focus on creating a culture of achievement, wellbeing, and strong values.",
+      "quote": "Our strength is in steady guidance and thoughtful support for every learner.",
+      "animation": "up"
+    },
+    {
+      "role": "Principal’s Message",
+      "name": "Mritunjai kumar Mishra",
+      "img": "/images/principal.jpeg",
+      "message": "At Noza Convent School, strong academic performance grows from a caring school culture. We support students to discover their talents while holding fast to respect, resilience, and community values.",
+      "quote": "Academic excellence must be matched with compassion and character.",
+      "animation": "left"
+    },
+    {
+      "role": "Vice Principal’s Message",
+      "name": "Mrs. Priyanka Srivastava",
+      "img": "/images/vice-principal.jpeg",
+      "message": "Our coordination team keeps teaching pathways aligned and learning experiences fresh. We ensure every student receives personalized support, creativity, and the structure they need to thrive.",
+      "quote": "Great learning happens when every classroom moves forward together.",
+      "animation": "right"
+    }
+  ]
+}
