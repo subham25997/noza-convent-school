@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BiMap, BiLogoWhatsapp, BiEnvelope } from "react-icons/bi";
+import { BiMap, BiEnvelope } from "react-icons/bi";
 import { CONTACT } from "@/config/contact";
 
 export default function VisitSection() {
   return (
-    <section className="relative overflow-hidden py-20 bg-linear-to-br from-amber-600 to-amber-400">
+    <section className="relative overflow-hidden py-20 bg-linear-to-br from-amber-500 to-amber-400">
       <div className="absolute inset-0 bg-[url('/images/bg_img1.png')] bg-cover bg-center opacity-5" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -18,7 +18,7 @@ export default function VisitSection() {
           className="grid gap-12 lg:grid-cols-[1.3fr_0.95fr] items-center"
         >
           <div className="space-y-8 text-white">
-            <p className="text-sm font-bold uppercase tracking-[0.35em] text-lime-200">Contact & Visit</p>
+            <p className="text-sm font-bold uppercase tracking-[0.35em] text-white">Contact & Visit</p>
             <div className="space-y-4">
               <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
                 Discover the future of elite education at Noza Convent School.

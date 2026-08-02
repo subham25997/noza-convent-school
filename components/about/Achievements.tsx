@@ -36,6 +36,10 @@ export default function AchievementSection() {
 
       <div className="relative max-w-7xl mx-auto px-6">
         <MainTitle title="Our Achievements" />
+        <p className="text-gray-600 text-center mx-auto mt-4">
+          We take pride in our accomplishments and the milestones we've reached over the years. Our dedication to excellence is reflected in the success of our students and the recognition we've received in the academic community.
+          We are committed to continuing this journey of growth and achievement, ensuring that our students receive the best education and opportunities for their future.
+        </p>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mt-12">
           {/* LEFT IMAGE */}
@@ -84,7 +88,7 @@ export default function AchievementSection() {
                   className="group flex items-start gap-5 p-5 border border-gray-200 bg-white shadow-sm hover:shadow-md transition"
                 >
                   {/* Icon */}
-                  <div className="flex items-center justify-center w-12 h-12 bg-orange-50 text-amber-500 rounded-lg">
+                  <div className="flex items-center justify-center w-12 h-12 bg-lime-100 text-lime-600 rounded-lg">
                     <Icon className="text-2xl" />
                   </div>
 
@@ -99,7 +103,7 @@ export default function AchievementSection() {
                   </div>
 
                   {/* Hover Line */}
-                  <div className="absolute left-0 bottom-0 h-[2px] w-0 bg-amber-500 transition-all duration-300 group-hover:w-full"></div>
+                  <div className="absolute left-0 bottom-0 h-0.5 w-0 bg-lime-500 transition-all duration-300 group-hover:w-full"></div>
                 </motion.div>
               );
             })}

@@ -11,7 +11,7 @@ export default function HeroAbout() {
           "url(/images/computer-lab.jpeg) no-repeat center center/cover",
       }}
     >
-      <div className="bg-linear-to-t from-lime-600/20 to-lime-600/30 absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
+      <div className="bg-linear-to-t from-lime-600/30 to-lime-600/40 absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}

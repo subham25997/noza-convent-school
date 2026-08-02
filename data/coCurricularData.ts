@@ -17,11 +17,11 @@ export type CoCurricularSectionData = {
 
 export const coCurricularData: CoCurricularSectionData[] = [
   {
-    id: "arts-creativity",
-    title: "Arts & Creativity",
+    id: "arts-science-creativity",
+    title: "Arts & Science Creativity",
     subtitle: "Nurturing imagination through colour, design, and handmade expression.",
     image: "/images/creative.jpg",
-    images: ["/images/pencils.jpg", "/images/rangoli.jpg"],
+    images: ["/images/science.jpg", "/images/science-drawing.jpg", "/images/art1.jpg", "/images/art2.jpg", "/images/art3.jpg"],
     layout: "stack",
     accent: "orange",
     items: [
@@ -30,8 +30,23 @@ export const coCurricularData: CoCurricularSectionData[] = [
         description: "Students explore colours, shading, and creative themes to express ideas with confidence.",
       },
       {
-        title: "Rangoli Making",
-        description: "Beautiful patterns and traditional artistry bring joy, symmetry and cultural pride to school life.",
+        title: "Science & Innovation",
+        description: "Hands-on experiments and projects spark curiosity, problem-solving, and critical thinking skills.",
+      },
+    ],
+  },
+  {
+    id: "rangoli-craft-club",
+    title: "Rangoli & Craft Club",
+    subtitle: "Creating beauty through traditional art forms and creative expression.",
+    image: "/images/rangoli.jpg",
+    images: ["/images/rangoli1.jpg", "/images/rangoli2.jpg", "/images/rangoli3.jpg", "/images/rangoli4.jpg"],
+    layout: "stack",
+    accent: "green",
+    items: [
+      {
+        title: "Rangoli Designing",
+        description: "Students learn to create intricate patterns using colored powders and natural materials. This activity enhances focus, patience, and cultural appreciation. ",
       },
     ],
   },
@@ -39,26 +54,33 @@ export const coCurricularData: CoCurricularSectionData[] = [
     id: "performing-arts",
     title: "Performing Arts",
     subtitle: "Bringing rhythm, movement, voice and stagecraft to life.",
-    image: "/images/school.jpeg",
-    images: ["/images/school.jpeg", "/images/creative.jpg"],
-    layout: "gallery",
+    image: "/images/independence-day-1.jpg",
+    images: ["/images/republic-day.jpg", "/images/independence-day-2.jpg", "/images/republic-day-2.jpg", "/images/independence-day.jpg"],
+    layout: "stack",
     accent: "purple",
     items: [
       {
-        title: "Dance",
-        description: "Classical, folk and western dance forms help students develop grace, discipline and confidence.",
+        title: "Republic Day Performances",
+        description: "Students showcase patriotic spirit through music, dance, and drama during the annual Republic Day celebrations.",
       },
       {
-        title: "Music",
-        description: "Vocal and instrumental practice inspire creativity, teamwork and appreciation for melody.",
+        title: "Independence Day Performances",
+        description: "Students express national pride and cultural heritage through performances, speeches, and artistic presentations on Independence Day.",
       },
+    ],
+  },
+  {
+    id: "fun-and-tours",
+    title: "Fun & Tours",
+    subtitle: "Exploring the world beyond the classroom.",
+    image: "/images/tour.jpg",
+    images: ["/images/tour1.jpg", "/images/tour2.jpg", "/images/tour3.jpg", "/images/tour4.jpg"],
+    layout: "stack",
+    accent: "purple",
+    items: [
       {
-        title: "Drama & Theatre",
-        description: "Storytelling and performance build communication, expression and public speaking skills.",
-      },
-      {
-        title: "Annual Day Performances",
-        description: "Students shine on stage during grand showcases that celebrate talent and school spirit.",
+        title: "Tours",
+        description: "Students enjoy educational and recreational trips to various destinations. These excursions foster curiosity, social skills, and a broader understanding of the world.",
       },
     ],
   },
@@ -67,76 +89,19 @@ export const coCurricularData: CoCurricularSectionData[] = [
     title: "Sports & Physical Education",
     subtitle: "Building health, focus and team spirit through active participation.",
     image: "/images/sports.jpeg",
-    images: ["/images/sports.jpeg", "/images/park.jpeg"],
+    images: ["/images/holistic.jpg", "/images/park.jpeg", "/images/physical-edu-1.jpg", "/images/physical-edu-2.jpg"],
     layout: "stack",
     accent: "green",
     items: [
       {
-        title: "Volleyball",
-        description: "Coordination, teamwork and agility are strengthened through regular practice and friendly matches.",
+        title: "Sports & Games",
+        description: "Students engage in various sports and games to develop physical fitness, teamwork, and strategic thinking.",
       },
       {
-        title: "Kabaddi",
-        description: "Students learn strategy, stamina and endurance through this traditional sport.",
+        title: "Physical Education",
+        description: "Structured physical activities and exercises promote overall health, coordination, and discipline among students.",
       },
-      {
-        title: "Kho-Kho",
-        description: "Fast-paced play nurtures reflexes, quick thinking and team coordination.",
-      },
-      {
-        title: "Yoga",
-        description: "Mind-body balance, flexibility and concentration are developed through yoga sessions.",
-      },
-      {
-        title: "Chess",
-        description: "Strategic thinking, patience and planning are sharpened through this intellectual game.",
-      },
-    ],
-  },
-  {
-    id: "academic-enrichment",
-    title: "Academic Enrichment",
-    subtitle: "Encouraging curiosity beyond the regular classroom curriculum.",
-    image: "/images/olympiad-prize.jpeg",
-    images: ["/images/olympiad-prize.jpeg", "/images/olympiad-prize-2.jpeg"],
-    layout: "split",
-    accent: "sky",
-    items: [
-      {
-        title: "Olympiad",
-        description: "Students participate in national-level competitive platforms to strengthen conceptual understanding.",
-      },
-      {
-        title: "Quiz Competitions",
-        description: "Quick-thinking and subject knowledge are celebrated through interactive quiz events.",
-      },
-    ],
-  },
-  {
-    id: "cultural-activities",
-    title: "Cultural Activities",
-    subtitle: "Celebrating traditions, values and shared joy in the school community.",
-    image: "/images/rakshabandhan.png",
-    images: ["/images/rakshabandhan.png", "/images/school.jpeg"],
-    layout: "gallery",
-    accent: "orange",
-    items: [
-      {
-        title: "Independence Day Celebration",
-        description: "Patriotic spirit and national pride are expressed through speeches, performances and events.",
-      },
-      {
-        title: "Republic Day Celebration",
-        description: "The school commemorates the nation with unity, respect and cultural programs.",
-      },
-      {
-        title: "Rakshabandhan Celebration",
-        description: "Students celebrate the festival with warmth, tradition and joyful participation.",
-      },
-      {
-        title: "Annual Function",
-        description: "A memorable showcase of talent, culture and school spirit brings everyone together.",
-      },
+      
     ],
   },
 ];

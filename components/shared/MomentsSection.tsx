@@ -44,7 +44,7 @@ export default function MomentsSection() {
           <p className="text-sm uppercase tracking-[0.35em] text-amber-300/90">
             School Highlights
           </p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="mt-4 text-3xl lg:text-4xl font-semibold tracking-tight text-white">
             Capturing memorable moments at Noza Convent School
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">

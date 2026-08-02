@@ -18,7 +18,7 @@ export default function CoCurricularPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-orange-500">
               Learning Beyond the Classroom
             </p>
-            <h2 className="mt-3 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+            <h2 className="mt-6 text-3xl lg:text-4xl text-gray-900 font-semibold tracking-tight">
               A vibrant blend of creativity, culture, sports and excellence
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-gray-600 sm:text-lg">

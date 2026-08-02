@@ -18,11 +18,11 @@ export default function AboutSection() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="border border-gray-100 bg-white/95 p-10 shadow-2xl shadow-slate-950/10"
           >
-            <span className="inline-flex rounded-full bg-amber-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-amber-600 shadow-sm shadow-amber-500/10">
+            <span className="text-sm uppercase tracking-[0.35em] text-amber-600">
               Our Story
             </span>
-            <h2 className="mt-6 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Nurturing confident learners through values, innovation, and care.
+            <h2 className="mt-6 text-3xl lg:text-4xl text-gray-900 font-semibold tracking-tight">
+              Nurturing confident learners through <span className="text-amber-500">values</span>, <span className="text-amber-500">innovation</span>, and <span className="text-amber-500">care</span>.
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-700">
               Founded in 2016, Noza Convent School blends academic excellence with strong moral values. Our campus is designed to help students grow intellectually and emotionally while building confidence, resilience, and a lifelong love for learning.

@@ -27,7 +27,7 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About Us"},
     {
-      label: "Academics", disabled: true,
+      label: "Academics",
       children: [
         { href: "/academics/curriculum", label: "Curriculum" },
         { href: "/academics/co-curricular", label: "Co-Curricular" },
