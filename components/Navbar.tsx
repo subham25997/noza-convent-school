@@ -25,20 +25,13 @@ export default function Navbar() {
 
   const navLinks: NavItem[] = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About Us" },
+    { href: "/about", label: "About Us"},
     {
       label: "Academics",
       children: [
         { href: "/academics/curriculum", label: "Curriculum" },
         { href: "/academics/co-curricular", label: "Co-Curricular" },
         { href: "/academics/calender", label: "Calender" },
-      ],
-    },
-    {
-      label: "Admission",
-      children: [
-        { href: "/admission/process", label: "Admission Process" },
-        { href: "/admission/fee-structure", label: "Fee Structure" },
       ],
     },
     { href: "/gallery", label: "Gallery" },
@@ -69,14 +62,7 @@ export default function Navbar() {
     const isOpen = activeDropdown === item.label;
     const isActive = item.href
       ? pathname === item.href || pathname.startsWith(`${item.href}/`)
-      : Boolean(
-          item.children?.some(
-            (child) =>
-              child.href &&
-              (pathname === child.href ||
-                pathname.startsWith(`${child.href}/`)),
-          ),
-        );
+      : pathname === "/academics" || pathname.startsWith("/academics/");
 
     if (isMobile) {
       return (
@@ -87,15 +73,11 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setActiveDropdown(isOpen ? null : item.label)}
                 className={`flex w-full items-center justify-between px-6 py-3 text-left transition ${
-                  isActive
-                    ? "text-amber-500"
-                    : "text-gray-900 hover:text-amber-500"
-                } ${item.disabled ? "pointer-events-none opacity-50" : ""}`}
+                  isActive ? "text-amber-500" : "text-gray-900 hover:text-amber-500"
+                }`}
               >
                 <span>{item.label}</span>
-                <span
-                  className={`text-sm transition-transform ${isOpen && !item.disabled ? "rotate-180" : ""}`}
-                >
+                <span className={`text-sm transition-transform ${isOpen ? "rotate-180" : ""}`}>
                   ▾
                 </span>
               </button>
@@ -110,8 +92,7 @@ export default function Navbar() {
                   >
                     {item.children?.map((child) => {
                       const isChildActive =
-                        pathname === child.href ||
-                        pathname.startsWith(`${child.href}/`);
+                        pathname === child.href || pathname.startsWith(`${child.href}/`);
 
                       return (
                         <li key={child.label}>
@@ -141,10 +122,9 @@ export default function Navbar() {
               href={item.href ?? "/"}
               onClick={() => setMenuOpen(false)}
               className={`block px-6 py-3 transition ${
-                isActive
-                  ? "text-amber-500"
-                  : "text-gray-900 hover:text-amber-500"
+                isActive ? "text-amber-500" : "text-gray-900 hover:text-amber-500"
               }`}
+              
             >
               {item.label}
             </Link>
@@ -166,17 +146,14 @@ export default function Navbar() {
               type="button"
               onClick={() => setActiveDropdown(isOpen ? null : item.label)}
               className={`flex items-center gap-1 px-2 py-2 font-semibold transition-colors duration-300 ${
-                isActive
-                  ? "text-amber-500"
-                  : "text-gray-800 hover:text-amber-500"
-              } ${item.disabled ? "pointer-events-none opacity-50" : ""}`}
+                isActive ? "text-amber-500" : "text-gray-800 hover:text-amber-500"
+              }
+              `}
               aria-expanded={isOpen}
               aria-haspopup="true"
             >
               <span>{item.label}</span>
-              <span
-                className={`text-sm transition-transform ${isOpen && !item.disabled ? "rotate-180" : ""}`}
-              >
+              <span className={`text-sm transition-transform ${isOpen ? "rotate-180" : ""}`}>
                 ▾
               </span>
             </button>
@@ -191,8 +168,7 @@ export default function Navbar() {
                 >
                   {item.children?.map((child) => {
                     const isChildActive =
-                      pathname === child.href ||
-                      pathname.startsWith(`${child.href}/`);
+                      pathname === child.href || pathname.startsWith(`${child.href}/`);
 
                     return (
                       <Link
@@ -258,10 +234,7 @@ export default function Navbar() {
         whileInView={{}}
         className="sticky top-0 z-50 bg-white shadow-md transition-all duration-300"
       >
-        <div
-          ref={navRef}
-          className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16"
-        >
+        <div ref={navRef} className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
           <Link href="/" className="flex gap-2 items-center">
             <img
               src="/images/logo.png"
@@ -269,9 +242,7 @@ export default function Navbar() {
               className="w-14 h-14 object-contain"
             />
             <div className="ms-3">
-              <h5 className="font-bold text-2xl text-amber-500 leading-tight">
-                Noza Convent School
-              </h5>
+              <h5 className="font-bold text-2xl text-amber-500 leading-tight">Noza Convent School</h5>
               <p className="text-xs font-semibold text-lime-600 uppercase tracking-wider">
                 Public School
               </p>
