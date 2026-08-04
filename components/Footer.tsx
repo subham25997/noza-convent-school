@@ -13,13 +13,6 @@ const quickLinks = [
   { name: "Contact", href: "/contact" },
 ];
 
-const usefulLinks = [
-  { name: "Admission", href: "/admission" },
-  { name: "Notice Board", href: "/admin/add-notice" },
-  { name: "Privacy Policy", href: "/privacy" },
-  { name: "Terms & Conditions", href: "/terms" },
-];
-
 const socialLinks = [
   { name: "Facebook", icon: FaFacebook, href: CONTACT.facebook },
   { name: "Instagram", icon: FaInstagram, href: CONTACT.instagram },
@@ -118,25 +111,25 @@ export default function Footer() {
             </h3>
             <ul className="space-y-4 pt-4">
               <li className="flex items-start justify-center md:justify-start space-x-3">
-                <FaMapMarkerAlt className="text-orange-500 mt-1 flex-shrink-0" size={16} />
+                <FaMapMarkerAlt className="text-orange-500 mt-1 shrink-0" size={16} />
                 <span className="text-gray-400 text-sm leading-relaxed">
                   Noza Convent School, Maniar, Chhitoni, Dewrar, Uttar Pradesh 277302
                 </span>
               </li>
               <li className="flex items-center justify-center md:justify-start space-x-3">
-                <FaPhoneAlt className="text-orange-500 flex-shrink-0" size={16} />
+                <FaPhoneAlt className="text-orange-500 shrink-0" size={16} />
                 <a href={`tel:${CONTACT.phoneNumber}`} className="text-gray-400 hover:text-orange-400 transition-colors text-sm">
                   {CONTACT.phoneNumber}
                 </a>
               </li>
               <li className="flex items-center justify-center md:justify-start space-x-3">
-                <FaEnvelope className="text-orange-500 flex-shrink-0" size={16} />
+                <FaEnvelope className="text-orange-500 shrink-0" size={16} />
                 <a href={`mailto:${CONTACT.email}`} className="text-gray-400 hover:text-orange-400 transition-colors text-sm">
                   {CONTACT.email}
                 </a>
               </li>
               <li className="flex items-start justify-center md:justify-start space-x-3">
-                <FaClock className="text-orange-500 mt-1 flex-shrink-0" size={16} />
+                <FaClock className="text-orange-500 mt-1 shrink-0" size={16} />
                 <span className="text-gray-400 text-sm">
                   Mon - Sat: 8:00 AM - 6:00 PM
                 </span>

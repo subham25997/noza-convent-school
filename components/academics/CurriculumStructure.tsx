@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import MainTitle from "../MainTitle";
 import { BiBookOpen, BiLayer, BiTrendingUp, BiHappyBeaming } from "react-icons/bi";
 
 export default function CurriculumStructure() {
@@ -33,72 +32,80 @@ export default function CurriculumStructure() {
   ];
 
   return (
-    <section id="curriculum" className="px-4 sm:px-6 py-12 sm:py-16 md:py-20 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <MainTitle title="Academic Pathway" />
-
-        <div className="relative mt-10 sm:mt-16">
-          {/* CENTER LINE - Hidden on mobile, visible on md and up */}
-          <div className="hidden md:block absolute left-1/2 top-0 h-full w-px bg-gray-200 -translate-x-1/2" />
-
-          <div className="flex flex-col gap-8 sm:gap-12 md:gap-16">
-            {data.map((item, i) => {
-              const Icon = item.icon;
-              const isLeft = i % 2 === 0;
-
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: -50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className={`relative flex items-center ${
-                    isLeft ? "justify-start" : "justify-end"
-                  }`}
-                >
-                  {/* CONTENT */}
-                  <div className="w-full sm:w-[90%] md:w-[45%] border border-gray-200 p-4 sm:p-6 bg-white rounded-lg sm:rounded-xl">
-                    <span className="text-xs text-gray-400 tracking-widest">
-                      0{i + 1}
-                    </span>
-
-                    <h3 className="text-base sm:text-lg font-semibold mt-2 mb-2 text-gray-900">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {item.desc}
-                    </p>
-
-                    {/* SUBJECT CHIPS */}
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <strong>Subjects:</strong>
-                      {item.subjects?.map((sub, idx) => (
-                        <span
-                          key={idx}
-                          className="text-gray-600 text-sm border border-gray-200 rounded-full px-3 py-1 inline-flex items-center"
-                        >
-                          {sub}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* ICON DOT - Hidden on mobile, visible on md and up */}
-                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 bg-white border border-gray-200 w-12 h-12 items-center justify-center rounded-full">
-                    <Icon className="text-orange-500" size={22} />
-                  </div>
-
-                  {/* Mobile icon - shown below content on mobile */}
-                  <div className="md:hidden absolute right-2 sm:right-4 top-4 bg-white border border-gray-200 w-10 h-10 items-center justify-center rounded-full flex">
-                    <Icon className="text-orange-500" size={18} />
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+    <section id="curriculum" className="relative overflow-hidden bg-white px-4 sm:px-6 py-16 sm:py-20 md:py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(241,248,233,0.75),transparent_36%),radial-gradient(circle_at_bottom_left,rgba(255,248,236,0.7),transparent_34%)]" />
+      <div className="relative max-w-7xl mx-auto">
+        <div className="max-w-3xl mb-8 sm:mb-10 md:mb-12">
+          <div className="h-1 w-16 rounded-full bg-[#7CB342]/35" aria-hidden="true" />
+          <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-[#1E293B]">
+            Academic Pathway
+          </h2>
+          <p className="mt-4 text-sm sm:text-base md:text-lg leading-7 sm:leading-8 text-slate-600 max-w-2xl">
+            A clear, caring, and future-ready academic journey
+          </p>
         </div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.16 }}
+          variants={{
+            hidden: { opacity: 0, y: 24 },
+            visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.12 } },
+          }}
+          className="grid gap-5 sm:gap-6 lg:grid-cols-2"
+        >
+          {data.map((item, i) => {
+            const Icon = item.icon;
+
+            return (
+              <motion.article
+                key={i}
+                variants={{
+                  hidden: { opacity: 0, y: 20, scale: 0.98 },
+                  visible: { opacity: 1, y: 0, scale: 1 },
+                }}
+                transition={{ duration: 0.3 }}
+                className="group relative min-h-56 h-full overflow-hidden bg-linear-to-br from-lime-800 via-lime-900 to-green-950 px-6 py-8 rounded-2xl shadow-xl border border-lime-600/50 transition-all duration-300 ease-out cursor-pointer"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-lime-700/20 text-amber-400">
+                    <Icon size={22} />
+                  </div>
+
+                  <span className="inline-flex rounded-full border border-lime-500/40 bg-lime-700/20 px-4 py-1 text-xs font-semibold uppercase tracking-[0.32em] text-lime-100">
+                    0{i + 1}
+                  </span>
+                </div>
+
+                <h3 className="mt-6 text-lg sm:text-xl font-semibold text-white">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-sm sm:text-[0.98rem] leading-7 text-lime-100">
+                  {item.desc}
+                </p>
+
+                <div className="mt-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-lime-200">
+                    Subjects:
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-2.5">
+                    {item.subjects?.map((sub, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center rounded-full border border-lime-500/30 bg-lime-700/20 px-3.5 py-2 text-sm text-lime-100 transition duration-300 hover:bg-amber-400 hover:text-black"
+                      >
+                        {sub}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

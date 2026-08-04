@@ -2,35 +2,44 @@
 
 import { motion } from "framer-motion";
 
-export default function HeroAbout() {
+export default function HeroGallery() {
   return (
-    <section
-      className="relative py-60 text-center overflow-hidden"
-      style={{
-        background: "url(/images/hero4.jpg) no-repeat center center/cover",
-      }}
-    >
-      <div className="bg-gradient-to-r from-black/50 to-gray-900/50 absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold text-white"
-        >
-          Gallery
-        </motion.h1>
+    <section className="relative w-screen min-h-95 sm:min-h-112.5 lg:min-h-140 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.75 }}
+        className="relative flex h-full min-h-95 w-full items-center justify-center rounded-none sm:min-h-112.5 lg:min-h-140"
+      >
+        <motion.div
+          initial={{ scale: 1.08 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="absolute inset-0 bg-[url('/images/hero4.jpg')] bg-cover bg-center bg-no-repeat"
+        />
 
-        <motion.p
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto mt-6 text-gray-200 text-base md:text-lg"
+        <div
+          className="absolute inset-0 bg-[linear-gradient(rgba(94,140,49,0.45),rgba(94,140,49,0.45))]"
+          aria-hidden="true"
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.15 }}
+          className="relative z-10 flex w-full max-w-212.5 flex-col items-center px-4 text-center sm:px-6"
         >
-          Discover the moments where learning meets creativity, energy, and excellence.
-        </motion.p>
-      </div>
+          <div className="h-1 w-16 rounded-full bg-white/35" aria-hidden="true" />
+
+          <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            Gallery
+          </h1>
+
+          <p className="mt-5 text-base leading-8 text-white/70 sm:text-lg md:text-xl">
+            Discover the moments where learning meets creativity, energy, and excellence.
+          </p>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

@@ -41,7 +41,7 @@ export default function Navbar() {
         { href: "/admission/fee-structure", label: "Fee Structure" },
       ],
     },
-    { href: "/gallery", label: "Gallery", disabled: true },
+    { href: "/gallery", label: "Gallery" },
     { href: "/contact", label: "Contact Us" },
   ];
 
@@ -64,11 +64,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    setActiveDropdown(null);
-    setMenuOpen(false);
-  }, [pathname]);
-
   const renderNavItem = (item: NavItem, isMobile = false) => {
     const hasChildren = Boolean(item.children?.length);
     const isOpen = activeDropdown === item.label;
@@ -90,17 +85,16 @@ export default function Navbar() {
             <>
               <button
                 type="button"
-                disabled={item.disabled}
                 onClick={() => setActiveDropdown(isOpen ? null : item.label)}
                 className={`flex w-full items-center justify-between px-6 py-3 text-left transition ${
                   isActive
                     ? "text-amber-500"
                     : "text-gray-900 hover:text-amber-500"
-                }`}
+                } ${item.disabled ? "pointer-events-none opacity-50" : ""}`}
               >
                 <span>{item.label}</span>
                 <span
-                  className={`text-sm transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  className={`text-sm transition-transform ${isOpen && !item.disabled ? "rotate-180" : ""}`}
                 >
                   ▾
                 </span>
@@ -175,8 +169,7 @@ export default function Navbar() {
                 isActive
                   ? "text-amber-500"
                   : "text-gray-800 hover:text-amber-500"
-              }
-              ${item.disabled ? "pointer-events-none opacity-50" : ""}`}
+              } ${item.disabled ? "pointer-events-none opacity-50" : ""}`}
               aria-expanded={isOpen}
               aria-haspopup="true"
             >
@@ -189,7 +182,7 @@ export default function Navbar() {
             </button>
 
             <AnimatePresence>
-              {isOpen && !item.disabled && (
+              {isOpen && (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -225,14 +218,7 @@ export default function Navbar() {
             href={item.href ?? "/"}
             className={`relative px-2 py-2 font-semibold transition-colors duration-300 ${
               isActive ? "text-amber-500" : "text-gray-800 hover:text-amber-500"
-            } ${item.disabled ? "pointer-events-none opacity-50" : ""}`}
-            aria-disabled={item.disabled}
-            tabIndex={item.disabled ? -1 : undefined}
-            onClick={(e) => {
-              if (item.disabled) {
-                e.preventDefault();
-              }
-            }}
+            }`}
           >
             {item.label}
           </Link>

@@ -4,69 +4,60 @@ import { motion } from "framer-motion";
 
 export default function HeroAcademics() {
   return (
-    <section
-      className="relative min-h-[500px] sm:min-h-[550px] md:min-h-[600px] flex items-center justify-center overflow-hidden"
-      style={{
-        background: "url(/images/classroom.jpeg) no-repeat center center/cover",
-      }}
-    >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/70" />
-
+    <section className="relative w-screen min-h-95 sm:min-h-112.5 lg:min-h-140 overflow-hidden">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20"
+        transition={{ duration: 0.75 }}
+        className="relative flex h-full min-h-95 sm:min-h-112.5 lg:min-h-140 w-full items-center justify-center rounded-none"
       >
-        <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
-          {/* Text Content */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex-1 text-center lg:text-left"
-          >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-              Nursery to Class 10: Learning at Every Step
-            </h1>
-            <p className="text-gray-200 mb-6 sm:mb-8 text-base sm:text-lg md:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0">
-              A complete school journey that balances early childhood discovery,
-              strong fundamentals, and confident Class 10 board preparation.
-            </p>
+        <motion.div
+          initial={{ scale: 1.08 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="absolute inset-0 bg-[url('/images/academics.jpg')] bg-cover bg-center bg-no-repeat"
+        />
 
-            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row justify-center lg:justify-start gap-3 sm:gap-4 lg:gap-3 xl:gap-4 text-sm sm:text-base text-gray-200">
-              <div className="flex items-center gap-2">
-                <span className="text-orange-500 text-lg">✓</span>
-                <span>Age-appropriate learning</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-orange-500 text-lg">✓</span>
-                <span>Caring faculty</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-orange-500 text-lg">✓</span>
-                <span>Board-ready foundation</span>
-              </div>
-            </div>
-          </motion.div>
+        <div
+          className="absolute inset-0 bg-[linear-gradient(rgba(76,125,32,0.55),rgba(45,80,25,0.55))]"
+          aria-hidden="true"
+        />
 
-          {/* Image */}
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex-shrink-0 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl"
-          >
-            <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-2xl border-4 border-white/20">
-              <img
-                src="/images/academics.jpg"
-                alt="Children in classroom"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.15 }}
+          className="relative z-10 flex w-full max-w-212.5 flex-col items-center text-center"
+        >
+          <div className="h-1 w-16 rounded-full bg-white/35" aria-hidden="true" />
+
+          <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+            Nursery to Class 12: Learning at Every Step
+          </h1>
+
+          <p className="mt-5 text-base sm:text-lg md:text-xl leading-8 text-white/70">
+            A complete school journey that balances early childhood discovery,
+            strong fundamentals, and confident Class 12 board preparation.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
+            {[
+              "Age-appropriate learning",
+              "Caring faculty",
+              "Board-ready foundation",
+            ].map((item) => (
+              <div
+                key={item}
+                className="inline-flex items-center gap-2 rounded-full border border-lime-600 bg-lime-800/80 px-5 py-2.5 text-sm font-medium text-lime-50 shadow-md transition-all duration-300 hover:bg-lime-700 hover:border-lime-400 hover:shadow-lg"
+              >
+                <span className="flex h-5 w-5 items-center justify-center rounded-full text-lime-200 text-xs font-bold">
+                  ✓
+                </span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
