@@ -1,16 +1,11 @@
-"use client";
-
-import HeroAdmission from "@/components/admission/HeroAdmission";
 import AdmissionProcess from "@/components/admission/AdmissionProcess";
 
+export const metadata = {
+  title: "Admission Process | Noza Convent School",
+  description:
+    "A clear four-step admission journey — enquiry, form, interaction and enrollment. See required documents and contact the school office.",
+};
+
 export default function AdmissionProcessPage() {
-  return (
-    <main className="bg-white">
-      <HeroAdmission
-        title="Admission Process"
-        subtitle="A simple and transparent admission journey designed to help parents and students feel confident at every step."
-      />
-      <AdmissionProcess />
-    </main>
-  );
+  return <AdmissionProcess />;
 }

@@ -49,8 +49,11 @@ export default function StorySection() {
           </p>
 
           {/* Premium Heading */}
-          <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-5 leading-snug">
-            A Journey of Excellence, Values, and Growth
+          <h3 className="text-3xl lg:text-4xl font-semibold text-gray-900 mb-5 leading-snug">
+            A Journey of
+            <span className="text-amber-500"> Education</span>,{" "}
+            <span className="text-amber-500">Values</span> &
+            <span className="text-amber-500"> Growth</span>
           </h3>
 
           {/* Animated Divider */}
@@ -64,10 +67,10 @@ export default function StorySection() {
 
           {/* Content */}
           <p className="text-gray-700 leading-relaxed mb-5">
-            Noza Convent School was founded with a vision to deliver
-            quality education that blends academic excellence with strong moral
-            values. We believe learning should shape not just minds, but
-            character and confidence.
+            Noza Convent School was founded with a vision to deliver quality
+            education that blends academic excellence with strong moral values.
+            We believe learning should shape not just minds, but character and
+            confidence.
           </p>
 
           <p className="text-gray-700 leading-relaxed mb-6">

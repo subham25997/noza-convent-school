@@ -25,14 +25,6 @@ export default function HeroAdmission({
         transition={{ duration: 0.8 }}
         className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 text-center"
       >
-        <motion.p
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-amber-500"
-        >
-          Admissions
-        </motion.p>
 
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
