@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa";
@@ -32,7 +33,7 @@ export default function MomentsSection() {
 
   return (
     <section className="relative overflow-hidden bg-slate-950 text-white py-16 sm:py-20 px-6">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.14),_transparent_32%),linear-gradient(180deg,_rgba(15,23,42,0.96),_rgba(15,23,42,0.99))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(251,191,36,0.14),transparent_32%),linear-gradient(180deg,rgba(15,23,42,0.96),rgba(15,23,42,0.99))]" />
       <div className="relative max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -24 }}
@@ -89,7 +90,7 @@ export default function MomentsSection() {
             transition={{ duration: 0.9, delay: 0.1 }}
             className="space-y-4"
           >
-            {videos.map((video, index) => (
+            {videos.map((video) => (
               <button
                 key={video.videoId}
                 type="button"
@@ -100,11 +101,13 @@ export default function MomentsSection() {
                     : "border-white/10 bg-white/5 hover:border-amber-400/30 hover:bg-white/10"
                 }`}
               >
-                <div className="relative h-24 w-24 overflow-hidden rounded-[1.5rem] bg-slate-900">
-                  <img
+                <div className="relative h-24 w-24 overflow-hidden rounded-3xl bg-slate-900">
+                  <Image
                     src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
                     alt={video.title}
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="96px"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 transition duration-300 group-hover:bg-black/50">
                     <FaPlay className="text-white text-lg" />
