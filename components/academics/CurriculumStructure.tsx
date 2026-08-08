@@ -35,14 +35,14 @@ export default function CurriculumStructure() {
     <section id="curriculum" className="relative overflow-hidden bg-white px-4 sm:px-6 py-16 sm:py-20 md:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(241,248,233,0.75),transparent_36%),radial-gradient(circle_at_bottom_left,rgba(255,248,236,0.7),transparent_34%)]" />
       <div className="relative max-w-7xl mx-auto">
-        <div className="max-w-3xl mb-8 sm:mb-10 md:mb-12">
-          <div className="h-1 w-16 rounded-full bg-[#7CB342]/35" aria-hidden="true" />
-          <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-[#1E293B]">
-            Academic Pathway
-          </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-lg leading-7 sm:leading-8 text-slate-600 max-w-2xl">
-            A clear, caring, and future-ready academic journey
-          </p>
+        <div className="mx-auto mb-8 sm:mb-10 md:mb-12 max-w-4xl">
+          <div className="flex items-center gap-4 justify-center mb-10">
+            <div className="flex-1 h-0.5 max-w-15 bg-orange-600" />
+            <span className="text-orange-600 px-2 text-center text-2xl sm:text-3xl md:text-4xl font-bold">
+              Academic Pathway
+            </span>
+            <div className="flex-1 h-0.5 max-w-15 bg-orange-600" />
+          </div>
         </div>
 
         <motion.div
@@ -66,28 +66,28 @@ export default function CurriculumStructure() {
                   visible: { opacity: 1, y: 0, scale: 1 },
                 }}
                 transition={{ duration: 0.3 }}
-                className="group relative min-h-56 h-full overflow-hidden bg-linear-to-br from-lime-800 via-lime-900 to-green-950 px-6 py-8 rounded-2xl shadow-xl border border-lime-600/50 transition-all duration-300 ease-out cursor-pointer"
+                className="group relative min-h-56 h-full overflow-hidden bg-white px-6 py-8 rounded-2xl shadow-xl border border-slate-200 transition-all duration-300 ease-out cursor-pointer"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-lime-700/20 text-amber-400">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-lime-100 text-lime-700">
                     <Icon size={22} />
                   </div>
 
-                  <span className="inline-flex rounded-full border border-lime-500/40 bg-lime-700/20 px-4 py-1 text-xs font-semibold uppercase tracking-[0.32em] text-lime-100">
+                  <span className="inline-flex rounded-full border border-lime-200 bg-lime-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.32em] text-lime-700">
                     0{i + 1}
                   </span>
                 </div>
 
-                <h3 className="mt-6 text-lg sm:text-xl font-semibold text-white">
+                <h3 className="mt-6 text-lg sm:text-xl font-semibold text-[#1E293B]">
                   {item.title}
                 </h3>
 
-                <p className="mt-3 text-sm sm:text-[0.98rem] leading-7 text-lime-100">
+                <p className="mt-3 text-sm sm:text-[0.98rem] leading-7 text-slate-600">
                   {item.desc}
                 </p>
 
                 <div className="mt-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-lime-200">
+                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
                     Subjects:
                   </p>
 
@@ -95,8 +95,9 @@ export default function CurriculumStructure() {
                     {item.subjects?.map((sub, idx) => (
                       <span
                         key={idx}
-                        className="inline-flex items-center rounded-full border border-lime-500/30 bg-lime-700/20 px-3.5 py-2 text-sm text-lime-100 transition duration-300 hover:bg-amber-400 hover:text-black"
+                        className="inline-flex items-center gap-2 rounded-full border bg-lime-700 px-4 py-2 text-sm font-semibold text-lime-50 shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-lime-600 hover:border-lime-800"
                       >
+                   
                         {sub}
                       </span>
                     ))}

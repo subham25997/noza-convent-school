@@ -80,7 +80,6 @@ function SectionHeading({
 }) {
   return (
     <div className="max-w-3xl mb-8 sm:mb-10 md:mb-12">
-      <div className="h-1 w-16 rounded-full bg-[#5E8C31]/35" aria-hidden="true" />
       <p className="mt-4 text-xs font-semibold uppercase tracking-[0.45em] text-[#5E8C31]">
         {label}
       </p>
