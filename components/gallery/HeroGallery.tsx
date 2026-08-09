@@ -29,8 +29,6 @@ export default function HeroGallery() {
           transition={{ duration: 0.75, delay: 0.15 }}
           className="relative z-10 flex w-full max-w-212.5 flex-col items-center px-4 text-center sm:px-6"
         >
-          <div className="h-1 w-16 rounded-full bg-white/35" aria-hidden="true" />
-
           <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
             Gallery
           </h1>

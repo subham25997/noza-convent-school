@@ -78,10 +78,6 @@ function SectionHeading({
 
   return (
     <div className="max-w-3xl mb-8 sm:mb-10 md:mb-12">
-      <div
-        className={`h-1 w-16 rounded-full ${isInverse ? "bg-lime-200/40" : "bg-[#7CB342]/35"}`}
-        aria-hidden="true"
-      />
       <h2
         className={`mt-4 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight ${
           isInverse ? "text-white" : "text-[#1E293B]"
@@ -110,21 +106,22 @@ export default function Academics() {
         <CurriculumStructure />
 
         {/* ================= METHODOLOGY ================= */}
-        <section className="relative overflow-hidden bg-white px-4 sm:px-6 py-16 sm:py-20 md:py-24">
-          <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#E8F5E9] to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(241,248,233,0.65),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(255,248,236,0.7),transparent_34%)]" />
+        <section className="relative overflow-hidden bg-slate-950 px-4 sm:px-6 py-16 sm:py-20 md:py-24">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.16),transparent_32%),linear-gradient(180deg,rgba(15,23,42,0.95),rgba(15,23,42,1))]" />
 
           <div className="relative max-w-7xl mx-auto">
-            <SectionHeading
-              title="Teaching Methodology"
-            />
+            <div className="mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-white">
+                Teaching Methodology
+              </h2>
+            </div>
 
             <motion.div
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.18 }}
-              className="grid gap-5 sm:gap-6 md:grid-cols-2"
+              className="grid gap-6 md:grid-cols-2"
             >
               {methodologyCards.map((item, i) => {
                 const Icon = item.icon;
@@ -134,21 +131,20 @@ export default function Academics() {
                     key={i}
                     variants={itemVariants}
                     transition={{ duration: 0.3 }}
-                    className="group relative min-h-56 h-full overflow-hidden bg-linear-to-br from-lime-800 via-lime-900 to-green-950 px-6 py-8 rounded-2xl shadow-xl border border-lime-600/50 transition-all duration-300 ease-out cursor-pointer"
+                    className="group rounded-[1.75rem] border border-white/10 bg-slate-900/95 p-6 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.7)] transition hover:-translate-y-1 hover:border-amber-400/30"
+                    style={{ opacity: 1, transform: "none" }}
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-lime-700/20 text-amber-400">
-                        <Icon size={22} />
-                      </div>
+                    <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-linear-to-br from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20">
+                      <Icon className="text-2xl" />
+                    </div>
 
-                      <div className="min-w-0 flex-1">
-                        <h4 className="text-base sm:text-lg font-semibold text-white">
-                          {item.title}
-                        </h4>
-                        <p className="mt-2 text-sm sm:text-[0.98rem] leading-7 text-lime-100">
-                          {item.desc}
-                        </p>
-                      </div>
+                    <div className="mt-6">
+                      <h4 className="text-lg font-semibold text-white sm:text-xl">
+                        {item.title}
+                      </h4>
+                      <p className="mt-3 text-sm leading-7 text-slate-300">
+                        {item.desc}
+                      </p>
                     </div>
                   </motion.article>
                 );
@@ -198,12 +194,22 @@ export default function Academics() {
           </div>
         </section>
 
+        {/* ================= GET IN TOUCH HEADING ================= */}
+        <section className="relative bg-white px-4 sm:px-6 pt-16 sm:pt-20 md:pt-24 pb-6">
+          <div className="relative max-w-6xl mx-auto">
+            <SectionHeading
+              title="Get in Touch"
+              subtitle="Have questions about admissions, academics, or school life? We're here to help."
+            />
+          </div>
+        </section>
+
         {/* ================= CTA ================= */}
-        <section className="bg-white px-4 sm:px-6 py-16 sm:py-20 md:py-24 pb-24 sm:pb-28 md:pb-32">
+        <section className="bg-white px-4 sm:px-6 py-8 pb-24 sm:pb-28 md:pb-32">
           <div className="max-w-4xl mx-auto group relative min-h-56 h-full overflow-hidden bg-linear-to-br from-lime-800 via-lime-900 to-green-950 px-6 py-8 rounded-2xl shadow-xl border border-lime-600/50 transition-all duration-300 ease-out cursor-pointer text-center sm:p-8 md:p-12">
             <SectionHeading
-              title="Enroll Today for a Complete School Journey"
-              subtitle="Admissions are open for Nursery through Class 10. Join a caring school environment rooted in strong academics and holistic growth."
+              title="Have an Enquiry? We're Here to Help"
+              subtitle="Admissions are open for Nursery through Class 12. Join a caring school environment rooted in strong academics and holistic growth."
               tone="inverse"
             />
 
