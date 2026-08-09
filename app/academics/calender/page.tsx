@@ -60,19 +60,19 @@ export default function CalenderPage() {
       <section className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           {/* Month Selector */}
-          <div className="mb-8 flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-200/50">
+          <div className="mb-10 flex items-center justify-between rounded-2xl bg-amber-500/90 p-4 shadow-sm ring-1 ring-gray-200/50">
             <button
               onClick={() => setSelectedMonth((prev) => (prev === 0 ? 11 : prev - 1))}
-              className="rounded-xl p-2 transition-colors hover:bg-gray-100"
+              className="rounded-xl p-2 transition-color"
             >
-              <BiChevronLeft size={24} className="text-gray-600" />
+              <BiChevronLeft size={24} className="text-white cursor-pointer hover:transform hover:scale-110" />
             </button>
-            <h2 className="text-xl font-bold text-amber-500 sm:text-2xl">{months[selectedMonth]} {new Date().getFullYear()}</h2>
+            <h2 className="text-xl font-bold text-white sm:text-2xl">{months[selectedMonth]} {new Date().getFullYear()}</h2>
             <button
               onClick={() => setSelectedMonth((prev) => (prev === 11 ? 0 : prev + 1))}
-              className="rounded-xl p-2 transition-colors hover:bg-gray-100"
+              className="rounded-xl p-2 transition-colors"
             >
-              <BiChevronRight size={24} className="text-gray-600" />
+              <BiChevronRight size={24} className="text-white cursor-pointer hover:transform hover:scale-110" />
             </button>
           </div>
 
