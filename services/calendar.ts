@@ -12,10 +12,9 @@ function normalizeHeader(header: string) {
   return header.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
-function getSheetConfig(env: NodeJS.ProcessEnv = process.env) {
-  const sheetId = env.GOOGLE_SHEET_ID?.trim();
-  const apiKey = env.GOOGLE_API_KEY?.trim() || env.GOOGLE_SHEET_API_KEY?.trim();
-
+function getSheetConfig() {
+  const sheetId = process.env.NEXT_PUBLIC_GOOGLE_SHEET_ID;
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   if (sheetId && apiKey) {
     return {
       sheetId,
@@ -39,7 +38,6 @@ async function fetchPublishedSheetValues(sheetId: string, range: string) {
       Accept: "application/json",
     },
   });
-
   const match = response.data.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)\s*;?\s*$/);
   if (!match?.[1]) {
     throw new Error("Published sheet response could not be parsed");
@@ -55,7 +53,7 @@ async function fetchPublishedSheetValues(sheetId: string, range: string) {
 async function fetchSheetValues(sheetId: string, range: string, apiKey?: string) {
   if (apiKey) {
     try {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(range)}`;
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/1rsGKWWABZbmtVs425H1MU8Gi5RngnNtOuUhxV3ENNcc/values/Calendar%20Events?key=AIzaSyCK59IksX8fYE5t9iLhTfnRXJyc6f2WpoI`;
       const response = await axios.get(url, {
         params: { key: apiKey },
       });
@@ -175,7 +173,7 @@ function buildCalendarEvent(row: string[], headers: string[]): CalendarEvent | n
 export async function getCalendarEvents() {
   try {
     const config = getSheetConfig();
-
+    console.log("Calendar sheet config:", config);
     if (!config?.sheetId || !config.apiKey) {
       console.warn("Google Sheets API key is missing. Skipping calendar fetch.");
       return { success: true, events: [], message: "Calendar not configured" };
@@ -183,7 +181,7 @@ export async function getCalendarEvents() {
 
     let values: string[][] = [];
     try {
-      values = await fetchSheetValues(config.sheetId, "Calendar!A:Z", config.apiKey);
+      values = await fetchSheetValues(config.sheetId, "Calendar Events", config.apiKey);
     } catch (error: any) {
       const message = error?.response?.data?.error?.message ?? error?.message ?? "";
       if (!/Unable to parse range|not found|does not exist|permission|published/i.test(message)) {
@@ -228,5 +226,3 @@ export async function getCalendarEvents() {
     return { events: [], success: false, error: error.message };
   }
 }
-
-export default getCalendarEvents;

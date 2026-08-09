@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { BiChevronLeft, BiChevronRight, BiCalendar, BiBook, BiFlag, BiStar } from "react-icons/bi";
-import type { CalendarEvent } from "@/services/calendar";
+import  { type CalendarEvent, getCalendarEvents } from "@/services/calendar";
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -22,13 +21,11 @@ export default function CalenderPage() {
   useEffect(() => {
     async function loadEvents() {
       try {
-        const response = await fetch("/api/calendar");
-        if (!response.ok) {
+        const response = await getCalendarEvents();
+        if (!response) {
           throw new Error("Unable to load calendar events");
         }
-        const data = await response.json();
-        console.log("Fetched calendar events:", data);
-        setEvents(data.events ?? []);
+        setEvents(response.events ?? []);
       } catch {
         setEvents([]);
       } finally {
@@ -42,23 +39,16 @@ export default function CalenderPage() {
   const monthEvents = events.filter((event) => months.indexOf(event.month) === selectedMonth);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/30 to-slate-50">
+    <main className="min-h-screen">
       {/* Hero Section */}
       <section
-        className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.82), rgba(30, 64, 175, 0.62)), url('/images/Leave.jpg')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="absolute inset-0 opacity-10">
+        className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-8 bg-gradient-to-br from-lime-700/90 via-lime-600/99 to-lime-700/90"
+        >
+        <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "url('/images/academic-calendar.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-white" />
           <div className="absolute -bottom-10 -left-10 h-60 w-60 rounded-full bg-white" />
         </div>
         <div className="relative mx-auto max-w-7xl">
-          <p className="text-sm text-center font-semibold uppercase tracking-[0.2em] text-amber-600">Academics</p>
           <h1 className="mt-3 text-center text-4xl font-bold text-white sm:text-5xl">Academic Calendar</h1>
           <p className="mt-4 text-center max-w-7xl text-lg text-white/90">
             Stay updated with important dates, events, holidays, and academic milestones throughout the year.
@@ -77,7 +67,7 @@ export default function CalenderPage() {
             >
               <BiChevronLeft size={24} className="text-gray-600" />
             </button>
-            <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">{months[selectedMonth]} 2025</h2>
+            <h2 className="text-xl font-bold text-amber-500 sm:text-2xl">{months[selectedMonth]} {new Date().getFullYear()}</h2>
             <button
               onClick={() => setSelectedMonth((prev) => (prev === 11 ? 0 : prev + 1))}
               className="rounded-xl p-2 transition-colors hover:bg-gray-100"
@@ -94,7 +84,7 @@ export default function CalenderPage() {
                 onClick={() => setSelectedMonth(index)}
                 className={`rounded-xl py-2 text-center text-xs font-medium transition-all sm:py-3 sm:text-sm ${
                   selectedMonth === index
-                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30"
+                    ? "bg-lime-500 text-white shadow-lg shadow-lime-500/30"
                     : "bg-white text-gray-600 hover:bg-gray-50"
                 }`}
               >
@@ -107,9 +97,9 @@ export default function CalenderPage() {
             {/* Events List */}
             <div className="lg:col-span-2">
               <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200/50 sm:p-8">
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
-                    <BiCalendar className="text-xl text-orange-600" />
+                <div className="mb-8 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
+                    <BiCalendar className="text-xl text-amber-600" />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900">Events & Dates</h3>
                 </div>
