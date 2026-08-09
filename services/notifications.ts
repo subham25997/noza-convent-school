@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import axios from "axios";
 
 export type NotificationItem = {
   id: string;
@@ -16,51 +16,65 @@ function normalizeHeader(header: string) {
   return header.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
-function normalizePrivateKey(privateKey: string | undefined) {
-  if (!privateKey) {
-    return undefined;
-  }
-
-  return privateKey
-    .trim()
-    .replace(/^['"]|['"]$/g, "")
-    .replace(/\\n/g, "\n");
-}
-
-function getSheetCredentials(env: NodeJS.ProcessEnv = process.env) {
+function getSheetConfig(env: NodeJS.ProcessEnv = process.env) {
   const sheetId = env.GOOGLE_SHEET_ID?.trim();
-  const clientEmail = env.GOOGLE_CLIENT_EMAIL?.trim();
-  const privateKey = normalizePrivateKey(env.GOOGLE_PRIVATE_KEY);
+  const apiKey = env.GOOGLE_API_KEY?.trim() || env.GOOGLE_SHEET_API_KEY?.trim();
 
-  if (sheetId && clientEmail && privateKey) {
+  if (sheetId && apiKey) {
     return {
       sheetId,
-      credentials: {
-        client_email: clientEmail,
-        private_key: privateKey,
-      },
+      apiKey,
     };
   }
 
-  const serviceAccountJson = env.GOOGLE_SERVICE_ACCOUNT || env.GOOGLE_CREDENTIALS;
-  if (serviceAccountJson) {
+  return null;
+}
+
+function extractSheetName(range: string) {
+  const match = range.match(/^'?(.*?)'?!/);
+  return match?.[1] ?? range;
+}
+
+async function fetchPublishedSheetValues(sheetId: string, range: string) {
+  const sheetName = extractSheetName(range);
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+  const response = await axios.get(url, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  const match = response.data.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)\s*;?\s*$/);
+  if (!match?.[1]) {
+    throw new Error("Published sheet response could not be parsed");
+  }
+
+  const payload = JSON.parse(match[1]);
+  const rows = payload?.table?.rows ?? [];
+  const values = rows.map((row: any) => (row?.c ?? []).map((cell: any) => cell?.v ?? ""));
+
+  return values;
+}
+
+async function fetchSheetValues(sheetId: string, range: string, apiKey?: string) {
+  if (apiKey) {
     try {
-      const parsed = JSON.parse(serviceAccountJson);
-      if (parsed.client_email && parsed.private_key) {
-        return {
-          sheetId: env.GOOGLE_SHEET_ID?.trim() || parsed.spreadsheet_id || parsed.sheet_id,
-          credentials: {
-            client_email: parsed.client_email,
-            private_key: normalizePrivateKey(parsed.private_key),
-          },
-        };
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(range)}`;
+      const response = await axios.get(url, {
+        params: { key: apiKey },
+      });
+
+      return response.data.values ?? [];
+    } catch (error: any) {
+      const status = error?.response?.status;
+      const message = error?.response?.data?.error?.message ?? error?.message ?? "";
+      if (status !== 403 && !/permission|not found|does not exist/i.test(message)) {
+        throw error;
       }
-    } catch {
-      // Ignore malformed JSON and fall back to the individual env var path.
     }
   }
 
-  return null;
+  return fetchPublishedSheetValues(sheetId, range);
 }
 
 function toSlug(value: string) {
@@ -114,35 +128,34 @@ function buildNotification(row: string[], headers: string[]): NotificationItem |
 
 export async function getNotifications() {
   try {
-    const credentials = getSheetCredentials();
+    const config = getSheetConfig();
 
-    if (!credentials?.sheetId || !credentials.credentials.client_email || !credentials.credentials.private_key) {
-      console.warn("Google Sheets configuration is incomplete. Skipping notifications fetch.");
+    if (!config?.sheetId || !config.apiKey) {
+      console.warn("Google Sheets API key is missing. Skipping notifications fetch.");
       return { success: true, notifications: [], message: "Notifications not configured" };
     }
 
-    const auth = new google.auth.GoogleAuth({
-      credentials: credentials.credentials,
-      scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-    });
+    let values: string[][] = [];
+    try {
+      values = await fetchSheetValues(config.sheetId, "Notifications!A:Z", config.apiKey);
+    } catch (error: any) {
+      const message = error?.response?.data?.error?.message ?? error?.message ?? "";
+      if (!/Unable to parse range|not found|does not exist|permission|published/i.test(message)) {
+        throw error;
+      }
 
-    const sheets = google.sheets({
-      version: "v4",
-      auth,
-    });
-
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: credentials.sheetId,
-      range: "Notifications!A:Z",
-    });
-
-    const values = response.data.values ?? [];
+      return {
+        success: true,
+        notifications: [],
+        message: "Notifications sheet could not be loaded. Please publish the sheet to the web or share it with Anyone with the link.",
+      };
+    }
 
     const [headers, ...rows] = values;
     const notifications = rows
-      .map((row) => buildNotification(row, headers ?? []))
-      .filter((notification): notification is NotificationItem => Boolean(notification))
-      .sort((first, second) => {
+      .map((row: string[]) => buildNotification(row, headers ?? []))
+      .filter((notification: NotificationItem | null): notification is NotificationItem => Boolean(notification))
+      .sort((first: NotificationItem, second: NotificationItem) => {
         const firstTime = Date.parse(first.publishedAt || "0");
         const secondTime = Date.parse(second.publishedAt || "0");
         return secondTime - firstTime;
@@ -160,7 +173,7 @@ export async function getNotifications() {
 
 export async function getNotificationBySlug(slug: string) {
   const { notifications } = await getNotifications();
-  return notifications.find((notification) => notification.slug === slug) ?? null;
+  return notifications.find((notification: NotificationItem) => notification.slug === slug) ?? null;
 }
 
 export default getNotifications;
