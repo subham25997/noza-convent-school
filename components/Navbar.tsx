@@ -274,7 +274,7 @@ export default function Navbar() {
               className="w-14 h-14 object-contain"
             />
             <div className="ms-3">
-              <h5 className="font-bold text-2xl text-amber-500 leading-tight">
+              <h5 className="font-bold text-xl xl:text-xl text-amber-500 leading-tight">
                 Noza Convent School
               </h5>
               <p className="text-xs font-semibold text-lime-600 uppercase tracking-wider">
@@ -283,13 +283,13 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => renderNavItem(link))}
           </ul>
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col gap-1.5"
+            className="lg:hidden flex flex-col gap-1.5"
             aria-label="Toggle navigation menu"
           >
             <motion.span
