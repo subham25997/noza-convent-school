@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noza-convent-school.local/schedule.schema.json",
+  "title": "Examination Schedule",
+  "type": "object",
+  "required": ["year", "examName", "dates", "classes"],
+  "additionalProperties": false,
+  "properties": {
+    "year": {
+      "type": "integer",
+      "description": "Academic year. Auto-computed at runtime by utils/year.ts and overwritten before rendering — the value stored here is only a fallback.",
+      "minimum": 2000
+    },
+    "examName": {
+      "type": "string",
+      "description": "Name of the examination, e.g. 'Half-Yearly Examination', 'Semester 1'.",
+      "minLength": 1
+    },
+    "dates": {
+      "type": "array",
+      "description": "Exam dates as ISO date strings (YYYY-MM-DD).",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "format": "date"
+      }
+    },
+    "classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["class", "shifts"],
+        "additionalProperties": false,
+        "properties": {
+          "class": {
+            "type": "string",
+            "enum": [
+              "Nursery",
+              "Class 1",
+              "Class 2",
+              "Class 3",
+              "Class 4",
+              "Class 5",
+              "Class 6",
+              "Class 7",
+              "Class 8",
+              "Class 9",
+              "Class 10"
+            ]
+          },
+          "shifts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["shift", "from", "to"],
+              "additionalProperties": false,
+              "properties": {
+                "shift": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "from": {
+                  "type": "string",
+                  "pattern": "^([01]\\d|2[0-3]):([0-5]\\d)$",
+                  "description": "24-hour time, HH:MM"
+                },
+                "to": {
+                  "type": "string",
+                  "pattern": "^([01]\\d|2[0-3]):([0-5]\\d)$",
+                  "description": "24-hour time, HH:MM"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
