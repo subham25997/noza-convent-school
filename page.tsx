@@ -1,197 +1,264 @@
 "use client";
-import { useEffect, useState } from "react";
-import { BiChevronLeft, BiChevronRight, BiCalendar, BiBook, BiFlag, BiStar } from "react-icons/bi";
-import  { type CalendarEvent, getCalendarEvents } from "@/services/calendar";
+import CurriculumStructure from "@/components/academics/CurriculumStructure";
+import HeroAcademics from "@/components/academics/HeroAcademics";
+import { CONTACT } from "@/config/contact";
+import { motion } from "framer-motion";
+import {
+  BiBook,
+  BiBrain,
+  BiBookOpen,
+  BiHappyBeaming,
+  BiLayer,
+  BiTrendingUp,
+} from "react-icons/bi";
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const sectionVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.06,
+    },
+  },
+};
 
-const legend = [
-  { label: "Academic", color: "bg-blue-500" },
-  { label: "Holiday", color: "bg-red-500" },
-  { label: "Event", color: "bg-purple-500" },
-  { label: "Break", color: "bg-amber-500" },
-  { label: "Meeting", color: "bg-green-500" },
+const itemVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+};
+
+const methodologyCards = [
+  {
+    icon: BiBrain,
+    title: "Child-Centered Learning",
+    desc: "Every class, from nursery to tenth, receives age-appropriate guidance and encouragement.",
+  },
+  {
+    icon: BiBook,
+    title: "Active Learning",
+    desc: "Activities, experiments and projects help students retain concepts across grades.",
+  },
+  {
+    icon: BiLayer,
+    title: "Balanced Curriculum",
+    desc: "Academic rigor is blended with creativity, values, and life skills.",
+  },
+  {
+    icon: BiTrendingUp,
+    title: "Progress Tracking",
+    desc: "Regular feedback and assessments keep learning goals aligned for every student.",
+  },
 ];
 
-export default function CalenderPage() {
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const [events, setEvents] = useState<CalendarEvent[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+const stageCards = [
+  {
+    title: "Early Years",
+    items: ["Language readiness", "Motor skills", "Creative play"],
+    icon: BiHappyBeaming,
+    tone: "lime",
+  },
+  {
+    title: "Primary",
+    items: ["Mathematics", "Environmental Science", "English & Hindi"],
+    icon: BiBookOpen,
+    tone: "amber",
+  },
+  {
+    title: "Secondary",
+    items: ["Science", "Social Studies", "Board preparation"],
+    icon: BiTrendingUp,
+    tone: "navy",
+  },
+];
 
-  useEffect(() => {
-    async function loadEvents() {
-      try {
-        const response = await getCalendarEvents();
-        if (!response) {
-          throw new Error("Unable to load calendar events");
-        }
-        setEvents(response.events ?? []);
-      } catch {
-        setEvents([]);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    loadEvents();
-  }, []);
-
-  const monthEvents = events.filter((event) => months.indexOf(event.month) === selectedMonth);
+function SectionHeading({
+  title,
+  subtitle,
+  tone = "light",
+}: {
+  title: string;
+  subtitle?: string;
+  tone?: "light" | "inverse";
+}) {
+  const isInverse = tone === "inverse";
 
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section
-        className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-8 bg-gradient-to-br from-lime-700/90 via-lime-600/99 to-lime-700/90"
+    <div className="max-w-3xl mb-8 sm:mb-10 md:mb-12">
+      <h2
+        className={`mt-4 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight ${
+          isInverse ? "text-white" : "text-[#1E293B]"
+        }`}
+      >
+        {title}
+      </h2>
+      {subtitle ? (
+        <p
+          className={`mt-4 text-sm sm:text-base md:text-lg leading-7 sm:leading-8 max-w-2xl ${
+            isInverse ? "text-lime-100" : "text-slate-600"
+          }`}
         >
-        <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "url('/images/academic-calendar.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-          <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-white" />
-          <div className="absolute -bottom-10 -left-10 h-60 w-60 rounded-full bg-white" />
-        </div>
-        <div className="relative mx-auto max-w-7xl">
-          <h1 className="mt-3 text-center text-4xl font-bold text-white sm:text-5xl">Academic Calendar</h1>
-          <p className="mt-4 text-center max-w-7xl text-lg text-white/90">
-            Stay updated with important dates, events, holidays, and academic milestones throughout the year.
-          </p>
-        </div>
-      </section>
+          {subtitle}
+        </p>
+      ) : null}
+    </div>
+  );
+}
 
-      {/* Calendar Section */}
-      <section className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          {/* Month Selector */}
-          <div className="mb-10 flex items-center justify-between rounded-2xl bg-amber-500/90 p-4 shadow-sm ring-1 ring-gray-200/50">
-            <button
-              onClick={() => setSelectedMonth((prev) => (prev === 0 ? 11 : prev - 1))}
-              className="rounded-xl p-2 transition-color"
+export default function Academics() {
+  return (
+    <main className="bg-white text-[#1E293B]">
+      <div className="bg-white">
+        <HeroAcademics />
+        <CurriculumStructure />
+
+        {/* ================= METHODOLOGY ================= */}
+        <section className="relative overflow-hidden bg-slate-950 px-4 sm:px-6 py-16 sm:py-20 md:py-24">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.16),transparent_32%),linear-gradient(180deg,rgba(15,23,42,0.95),rgba(15,23,42,1))]" />
+
+          <div className="relative max-w-7xl mx-auto">
+            <div className="mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-white">
+                Teaching Methodology
+              </h2>
+            </div>
+
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.18 }}
+              className="grid gap-6 md:grid-cols-2"
             >
-              <BiChevronLeft size={24} className="text-white cursor-pointer hover:transform hover:scale-110" />
-            </button>
-            <h2 className="text-xl font-bold text-white sm:text-2xl">{months[selectedMonth]} {new Date().getFullYear()}</h2>
-            <button
-              onClick={() => setSelectedMonth((prev) => (prev === 11 ? 0 : prev + 1))}
-              className="rounded-xl p-2 transition-colors"
-            >
-              <BiChevronRight size={24} className="text-white cursor-pointer hover:transform hover:scale-110" />
-            </button>
-          </div>
+              {methodologyCards.map((item, i) => {
+                const Icon = item.icon;
 
-          {/* Quick Month Grid */}
-          <div className="mb-8 grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-12">
-            {months.map((month, index) => (
-              <button
-                key={month}
-                onClick={() => setSelectedMonth(index)}
-                className={`rounded-xl py-2 text-center text-xs font-medium transition-all sm:py-3 sm:text-sm ${
-                  selectedMonth === index
-                    ? "bg-lime-500 text-white shadow-lg shadow-lime-500/30"
-                    : "bg-white text-gray-600 hover:bg-gray-50"
-                }`}
-              >
-                {month.slice(0, 3)}
-              </button>
-            ))}
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {/* Events List */}
-            <div className="lg:col-span-2">
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200/50 sm:p-8">
-                <div className="mb-8 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
-                    <BiCalendar className="text-xl text-amber-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900">Events & Dates</h3>
-                </div>
-
-                {isLoading ? (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-                      <BiCalendar className="text-2xl text-gray-400" />
+                return (
+                  <motion.article
+                    key={i}
+                    variants={itemVariants}
+                    transition={{ duration: 0.3 }}
+                    className="group rounded-[1.75rem] border border-white/10 bg-slate-900/95 p-6 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.7)] transition hover:-translate-y-1 hover:border-amber-400/30"
+                    style={{ opacity: 1, transform: "none" }}
+                  >
+                    <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-linear-to-br from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20">
+                      <Icon className="text-2xl" />
                     </div>
-                    <p className="text-gray-500">Loading calendar events…</p>
-                  </div>
-                ) : monthEvents.length > 0 ? (
-                  <div className="space-y-3">
-                    {monthEvents.map((event, index) => (
+
+                    <div className="mt-6">
+                      <h4 className="text-lg font-semibold text-white sm:text-xl">
+                        {item.title}
+                      </h4>
+                      <p className="mt-3 text-sm leading-7 text-slate-300">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </motion.article>
+                );
+              })}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ================= STAGE SUBJECTS ================= */}
+        <section className="relative overflow-hidden bg-[#FFF8EC]/40 px-4 sm:px-6 py-16 sm:py-20 md:py-24">
+          <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#E8F5E9] to-transparent" />
+          <div className="relative max-w-6xl mx-auto">
+            <SectionHeading
+              title="Stage-wise focus areas"
+              subtitle="Each stage is shaped to support age-appropriate growth, confidence, and academic readiness."
+            />
+
+            <motion.div
+              variants={sectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.18 }}
+              className="grid gap-5 sm:gap-6 md:grid-cols-3"
+            >
+              {stageCards.map((subject, i) => {
+                const Icon = subject.icon;
+                const iconStyle =
+                  subject.tone === "amber"
+                    ? "bg-amber-50 text-amber-700 ring-amber-100"
+                    : subject.tone === "navy"
+                      ? "bg-slate-100 text-slate-800 ring-slate-200"
+                      : "bg-lime-50 text-lime-700 ring-lime-100";
+                const accentStyle =
+                  subject.tone === "amber"
+                    ? "hover:border-amber-300"
+                    : subject.tone === "navy"
+                      ? "hover:border-slate-300"
+                    : "hover:border-lime-300";
+
+                return (
+                  <motion.article
+                    key={i}
+                    variants={itemVariants}
+                    transition={{ duration: 0.3 }}
+                    className={`group relative min-h-56 h-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white px-6 py-7 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.35)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_60px_-32px_rgba(15,23,42,0.4)] ${accentStyle}`}
+                  >
+                    <div className="flex items-start justify-between gap-4">
                       <div
-                        key={`${event.month}-${event.day}-${event.title}-${index}`}
-                        className="flex items-center gap-4 rounded-xl border border-gray-100 bg-gray-50/50 p-4 transition-all hover:border-orange-200 hover:bg-orange-50/30"
+                        className={`grid size-12 place-items-center rounded-2xl ring-8 transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105 ${iconStyle}`}
                       >
-                        <div className={`flex h-12 w-12 flex-shrink-0 flex-col items-center justify-center rounded-xl text-white ${event.color}`}>
-                          <span className="text-xs font-medium opacity-80">{months[selectedMonth].slice(0, 3)}</span>
-                          <span className="text-lg font-bold leading-none">{event.day}</span>
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900">{event.title}</h4>
-                          <p className="mt-1 text-sm text-gray-500 capitalize">{event.type}</p>
-                        </div>
+                        <Icon className="text-2xl" aria-hidden />
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-                      <BiCalendar className="text-2xl text-gray-400" />
+                      <span className="text-5xl font-bold leading-none tracking-[-0.08em] text-slate-100 transition-colors duration-300 group-hover:text-lime-100">
+                        0{i + 1}
+                      </span>
                     </div>
-                    <p className="text-gray-500">No events scheduled for this month</p>
-                  </div>
-                )}
-              </div>
-            </div>
 
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Legend */}
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200/50">
-                <h3 className="mb-4 font-bold text-gray-900">Legend</h3>
-                <div className="space-y-3">
-                  {legend.map((item) => (
-                    <div key={item.label} className="flex items-center gap-3">
-                      <div className={`h-3 w-3 rounded-full ${item.color}`} />
-                      <span className="text-sm text-gray-600">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                    <h3 className="mt-6 text-base font-semibold text-slate-950 sm:text-lg">
+                      {subject.title}
+                    </h3>
 
-              {/* Quick Stats */}
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200/50">
-                <h3 className="mb-4 font-bold text-gray-900">Year at a Glance</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100">
-                      <BiBook className="text-lg text-blue-600" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">{events.filter((event) => event.type === "academic").length}</p>
-                      <p className="text-xs text-gray-500">Academic Days</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-100">
-                      <BiFlag className="text-lg text-red-600" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">{events.filter((event) => event.type === "holiday").length}</p>
-                      <p className="text-xs text-gray-500">Holidays</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-100">
-                      <BiStar className="text-lg text-purple-600" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">{events.filter((event) => event.type === "event").length}</p>
-                      <p className="text-xs text-gray-500">Events</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    <ul className="mt-5 space-y-3 text-sm text-slate-600 sm:text-[0.98rem]">
+                      {subject.items.map((item, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-400" />
+                          <span className="leading-7">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.article>
+                );
+              })}
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* ================= GET IN TOUCH HEADING ================= */}
+        <section className="relative bg-white px-4 sm:px-6 pt-16 sm:pt-20 md:pt-24 pb-6">
+          <div className="relative max-w-6xl mx-auto">
+            <SectionHeading
+              title="Get in Touch"
+              subtitle="Have questions about admissions, academics, or school life? We're here to help."
+            />
+          </div>
+        </section>
+
+        {/* ================= CTA ================= */}
+        <section className="bg-white px-4 sm:px-6 py-8 pb-24 sm:pb-28 md:pb-32">
+          <div className="max-w-4xl mx-auto group relative min-h-56 h-full overflow-hidden bg-linear-to-br from-lime-800 via-lime-900 to-green-950 px-6 py-8 rounded-2xl shadow-xl border border-lime-600/50 transition-all duration-300 ease-out cursor-pointer text-center sm:p-8 md:p-12">
+            <SectionHeading
+              title="Have an Enquiry? We're Here to Help"
+              subtitle="Admissions are open for Nursery through Class 12. Join a caring school environment rooted in strong academics and holistic growth."
+              tone="inverse"
+            />
+
+            <a
+              href={`${CONTACT.whatsappUrl}?text=${encodeURIComponent("Hello, I would like to enquire about admissions at Noza Convent School.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-lime-500/40 bg-lime-700/20 px-6 sm:px-7 py-3 text-sm font-semibold text-lime-100 transition duration-300 hover:bg-amber-400 hover:text-black hover:shadow-[0_12px_28px_rgba(250,204,21,0.22)]"
+            >
+              Enquire Now
+            </a>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
