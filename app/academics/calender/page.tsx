@@ -40,23 +40,20 @@ export default function CalenderPage() {
   const monthEvents = events.filter((event) => months.indexOf(event.month) === selectedMonth);
 
   return (
-    <main className="min-h-screen bg-[#FFF8EC]/40 text-slate-900">
-      <section className="relative overflow-hidden bg-slate-950 px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+    <main className="min-h-screen bg-gray text-slate-900">
+      <section className="relative overflow-hidden bg-lime-500/50 px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-cover bg-center opacity-45"
-          style={{ backgroundImage: "url('/images/classroom.jpeg')" }}
+          style={{ backgroundImage: "url('/images/calender-banner.jpg')" }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(110deg,rgba(45,80,25,.78),rgba(94,140,49,.64),rgba(45,80,25,.72))]" />
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-r from-lime-600/40 via-lime-600/50 to-lime-600/40" />
+
         <div aria-hidden="true" className="pointer-events-none absolute -left-20 top-12 size-72 rounded-full border-[2rem] border-amber-300/15" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-24 size-96 rounded-full bg-lime-400/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-lime-300/25 bg-lime-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-lime-200">
-            <BiCalendar aria-hidden="true" />
-            Plan ahead
-          </span>
-          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">Academic Calendar</h1>
+          <h1 className="mx-auto mt-6 max-w-4xl text-3xl font-bold leading-tight sm:text-4xl md:text-5xl text-white">Academic Calendar</h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
             Stay informed about school events, holidays, and important academic milestones throughout the year.
           </p>
@@ -64,13 +61,9 @@ export default function CalenderPage() {
       </section>
 
       <section className="relative px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <div aria-hidden="true" className="pointer-events-none absolute left-0 top-12 size-72 rounded-full bg-lime-200/35 blur-3xl" />
-        <div aria-hidden="true" className="pointer-events-none absolute right-0 top-1/3 size-80 rounded-full bg-amber-200/30 blur-3xl" />
 
         <div className="relative mx-auto max-w-6xl">
-          <div className="relative mb-6 overflow-hidden rounded-[1.75rem] bg-slate-950 p-5 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.8)] sm:p-6">
-            <div aria-hidden="true" className="absolute -right-12 -top-16 size-48 rounded-full bg-lime-400/15 blur-2xl" />
-            <div aria-hidden="true" className="absolute -bottom-20 left-1/3 size-52 rounded-full bg-amber-400/10 blur-3xl" />
+          <div className="relative mb-6 overflow-hidden rounded-[1.75rem] bg-amber-500 p-5 shadow-sm sm:p-6">
             <div className="relative flex items-center justify-between gap-4">
               <button
                 type="button"
@@ -81,7 +74,7 @@ export default function CalenderPage() {
                 <BiChevronLeft size={24} aria-hidden="true" />
               </button>
               <div className="text-center">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-lime-300">Explore the year</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-lime-100">Explore the year</p>
                 <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white sm:text-3xl">{months[selectedMonth]} {new Date().getFullYear()}</h2>
               </div>
               <button
@@ -95,7 +88,7 @@ export default function CalenderPage() {
             </div>
           </div>
 
-          <div className="mb-8 grid grid-cols-4 gap-2 rounded-[1.5rem] border border-lime-200/80 bg-white/90 p-3 shadow-[0_18px_45px_-34px_rgba(77,124,15,0.28)] backdrop-blur-sm sm:grid-cols-6 sm:gap-3 sm:p-4 md:grid-cols-12">
+          <div className="mb-8 grid grid-cols-4 gap-2 rounded-3xl bg-white/90 p-3 shadow-[0_18px_45px_-34px_rgba(77,124,15,0.28)] backdrop-blur-sm sm:grid-cols-6 sm:gap-3 sm:p-4 md:grid-cols-12">
             {months.map((month, index) => (
               <button
                 key={month}
@@ -105,7 +98,7 @@ export default function CalenderPage() {
                 className={`rounded-xl border px-2 py-2.5 text-center text-xs font-semibold transition-all sm:py-3 sm:text-sm ${
                   selectedMonth === index
                     ? "border-lime-600 bg-lime-600 text-white shadow-[0_10px_22px_-12px_rgba(77,124,15,0.9)]"
-                    : "border-transparent bg-lime-50/70 text-slate-600 hover:border-lime-300 hover:bg-lime-100 hover:text-lime-800"
+                    : "border-transparent text-slate-600 hover:border-lime-300 hover:bg-lime-100 hover:text-lime-800"
                 }`}
               >
                 {month.slice(0, 3)}
@@ -115,7 +108,7 @@ export default function CalenderPage() {
 
           <div className="grid items-stretch gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <div className="h-full rounded-[1.75rem] border border-lime-200/80 bg-white p-5 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)] sm:p-8">
+              <div className="h-full rounded-[1.75rem] bg-white p-5 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)] sm:p-8">
                 <div className="mb-7 flex items-center gap-4 border-b border-slate-100 pb-6">
                   <div className="grid size-12 place-items-center rounded-2xl bg-amber-100 text-amber-700 ring-8 ring-amber-50/70">
                     <BiCalendar className="text-2xl" aria-hidden="true" />
@@ -164,7 +157,7 @@ export default function CalenderPage() {
             </div>
 
             <aside className="grid h-full gap-6 lg:grid-rows-2">
-              <div className="h-full rounded-[1.75rem] border border-lime-200/80 bg-white p-6 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)]">
+              <div className="h-full rounded-[1.75rem] bg-white p-6 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lime-700">Event guide</p>
                 <h3 className="mt-1 text-xl font-semibold tracking-tight text-slate-950">Calendar legend</h3>
                 <div className="mt-5 space-y-2">
@@ -177,7 +170,7 @@ export default function CalenderPage() {
                 </div>
               </div>
 
-              <div className="h-full rounded-[1.75rem] border border-lime-200/80 bg-white p-6 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)]">
+              <div className="h-full rounded-[1.75rem] bg-white p-6 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)]">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lime-700">Year at a glance</p>

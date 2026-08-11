@@ -27,7 +27,7 @@ export default function HeroAbout({
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-bold text-white"
+          className="mx-auto mt-4 max-w-4xl text-3xl font-bold leading-tight sm:text-4xl md:text-5xl text-white"
         >
           {title}
         </motion.h1>
