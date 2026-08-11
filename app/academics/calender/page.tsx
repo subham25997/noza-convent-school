@@ -47,7 +47,7 @@ export default function CalenderPage() {
           className="absolute inset-0 bg-cover bg-center opacity-45"
           style={{ backgroundImage: "url('/images/classroom.jpeg')" }}
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-r from-slate-950 via-lime-950/85 to-slate-950/70" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(110deg,rgba(45,80,25,.78),rgba(94,140,49,.64),rgba(45,80,25,.72))]" />
         <div aria-hidden="true" className="pointer-events-none absolute -left-20 top-12 size-72 rounded-full border-[2rem] border-amber-300/15" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-24 size-96 rounded-full bg-lime-400/10 blur-3xl" />
 
@@ -95,7 +95,7 @@ export default function CalenderPage() {
             </div>
           </div>
 
-          <div className="mb-8 grid grid-cols-4 gap-2 rounded-[1.5rem] border border-slate-200/80 bg-white p-3 shadow-[0_18px_45px_-34px_rgba(15,23,42,0.45)] sm:grid-cols-6 sm:gap-3 sm:p-4 md:grid-cols-12">
+          <div className="mb-8 grid grid-cols-4 gap-2 rounded-[1.5rem] border border-lime-200/80 bg-white/90 p-3 shadow-[0_18px_45px_-34px_rgba(77,124,15,0.28)] backdrop-blur-sm sm:grid-cols-6 sm:gap-3 sm:p-4 md:grid-cols-12">
             {months.map((month, index) => (
               <button
                 key={month}
@@ -105,7 +105,7 @@ export default function CalenderPage() {
                 className={`rounded-xl border px-2 py-2.5 text-center text-xs font-semibold transition-all sm:py-3 sm:text-sm ${
                   selectedMonth === index
                     ? "border-lime-600 bg-lime-600 text-white shadow-[0_10px_22px_-12px_rgba(77,124,15,0.9)]"
-                    : "border-transparent bg-slate-50 text-slate-600 hover:border-amber-200 hover:bg-amber-50 hover:text-amber-800"
+                    : "border-transparent bg-lime-50/70 text-slate-600 hover:border-lime-300 hover:bg-lime-100 hover:text-lime-800"
                 }`}
               >
                 {month.slice(0, 3)}
@@ -115,7 +115,7 @@ export default function CalenderPage() {
 
           <div className="grid items-stretch gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <div className="h-full rounded-[1.75rem] border border-slate-200/80 bg-white p-5 shadow-[0_22px_55px_-34px_rgba(15,23,42,0.4)] sm:p-8">
+              <div className="h-full rounded-[1.75rem] border border-lime-200/80 bg-white p-5 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)] sm:p-8">
                 <div className="mb-7 flex items-center gap-4 border-b border-slate-100 pb-6">
                   <div className="grid size-12 place-items-center rounded-2xl bg-amber-100 text-amber-700 ring-8 ring-amber-50/70">
                     <BiCalendar className="text-2xl" aria-hidden="true" />
@@ -138,7 +138,7 @@ export default function CalenderPage() {
                     {monthEvents.map((event, index) => (
                       <article
                         key={`${event.month}-${event.day}-${event.title}-${index}`}
-                        className="group flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-200 hover:bg-amber-50/50 hover:shadow-[0_14px_28px_-22px_rgba(15,23,42,0.45)]"
+                        className="group flex items-center gap-4 rounded-2xl border border-lime-100/80 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-lime-300 hover:bg-lime-50/50 hover:shadow-[0_14px_28px_-22px_rgba(77,124,15,0.38)]"
                       >
                         <div className={`flex size-14 shrink-0 flex-col items-center justify-center rounded-2xl text-white shadow-sm ${event.color}`}>
                           <span className="text-[0.65rem] font-semibold uppercase tracking-wide text-white/75">{months[selectedMonth].slice(0, 3)}</span>
@@ -164,7 +164,7 @@ export default function CalenderPage() {
             </div>
 
             <aside className="grid h-full gap-6 lg:grid-rows-2">
-              <div className="h-full rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_22px_55px_-34px_rgba(15,23,42,0.4)]">
+              <div className="h-full rounded-[1.75rem] border border-lime-200/80 bg-white p-6 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lime-700">Event guide</p>
                 <h3 className="mt-1 text-xl font-semibold tracking-tight text-slate-950">Calendar legend</h3>
                 <div className="mt-5 space-y-2">
@@ -177,7 +177,7 @@ export default function CalenderPage() {
                 </div>
               </div>
 
-              <div className="h-full rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_22px_55px_-34px_rgba(15,23,42,0.4)]">
+              <div className="h-full rounded-[1.75rem] border border-lime-200/80 bg-white p-6 shadow-[0_22px_55px_-34px_rgba(77,124,15,0.32)]">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-lime-700">Year at a glance</p>
