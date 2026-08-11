@@ -15,7 +15,6 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaDirections,
-  FaShieldAlt,
   FaGraduationCap,
   FaUsers,
   FaQuestionCircle,
@@ -23,7 +22,7 @@ import {
   FaRegCheckCircle,
 } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
-import { MdCheckCircle, MdOutlineQrCode2 } from "react-icons/md";
+import { MdCheckCircle } from "react-icons/md";
 import { CONTACT } from "@/config/contact";
 
 const heroVariants = {
@@ -80,14 +79,14 @@ function SectionHeading({
 }) {
   return (
     <div className="max-w-3xl mb-8 sm:mb-10 md:mb-12">
-      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.45em] text-[#5E8C31]">
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.45em] text-amber-600">
         {label}
       </p>
-      <h2 className="mt-4 text-2xl font-semibold tracking-tight text-[#1F2937] sm:text-3xl md:text-4xl">
+      <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl md:text-4xl">
         {title}
       </h2>
       {subtitle ? (
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-[#64748B] sm:text-base sm:leading-8 md:text-lg">
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-8 md:text-lg">
           {subtitle}
         </p>
       ) : null}
@@ -118,11 +117,11 @@ function TextInput({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-[#1F2937]">
+      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-slate-900">
         {label}
       </label>
       <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-[#5E8C31]">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-amber-600">
           <Icon className="text-base" />
         </div>
         <input
@@ -132,10 +131,10 @@ function TextInput({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           autoComplete={autoComplete}
-          className={`w-full rounded-2xl border bg-white py-3 pl-12 pr-4 text-sm text-[#1F2937] outline-none transition duration-300 placeholder:text-[#64748B]/70 focus:shadow-[0_0_0_4px_rgba(94,140,49,0.12)] ${
+          className={`w-full rounded-2xl border bg-white py-3 pl-12 pr-4 text-sm text-slate-900 outline-none transition duration-300 placeholder:text-slate-400 focus:shadow-[0_0_0_4px_rgba(245,158,11,0.14)] ${
             error
               ? "border-red-300 focus:border-red-400"
-              : "border-[#CFE6B7] focus:border-[#5E8C31]"
+              : "border-slate-200 focus:border-amber-500"
           }`}
         />
       </div>
@@ -159,15 +158,15 @@ function InfoPill({
   value: string;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl border border-[#CFE6B7] bg-white/85 p-4 shadow-sm backdrop-blur-sm">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EEF8E7] text-[#5E8C31]">
+    <div className="flex items-start gap-3 rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm backdrop-blur-sm">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-lime-50 text-lime-700">
         <Icon className="text-base" />
       </div>
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#5E8C31]">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-600">
           {title}
         </p>
-        <p className="mt-1 text-sm leading-6 text-[#1F2937]">{value}</p>
+        <p className="mt-1 text-sm leading-6 text-slate-800">{value}</p>
       </div>
     </div>
   );
@@ -319,12 +318,12 @@ export default function Contact() {
   };
 
   return (
-    <main className="bg-white text-[#1F2937]">
+    <main className="bg-slate-50 text-slate-900">
       <motion.section
         initial="hidden"
         animate="visible"
         variants={heroVariants}
-        className="relative w-screen min-h-125 overflow-hidden"
+        className="relative min-h-[32rem] w-full overflow-hidden sm:min-h-[36rem]"
       >
         <motion.div
           initial={{ scale: 1.08 }}
@@ -333,26 +332,26 @@ export default function Contact() {
           className="absolute inset-0 bg-[url('/images/gallery2/contactusg2.jpg')] bg-cover bg-center bg-no-repeat"
         />
         <div
-          className="absolute inset-0 bg-[linear-gradient(rgba(94,140,49,.50),rgba(94,140,49,.50))]"
+          className="absolute inset-0 bg-[linear-gradient(110deg,rgba(15,23,42,.72),rgba(54,87,30,.56),rgba(15,23,42,.42))]"
           aria-hidden="true"
         />
         <motion.div
           variants={contentVariants}
-          className="relative z-10 mx-auto flex h-125 w-full max-w-212.5 flex-col items-center justify-center px-4 text-center sm:px-6"
+          className="relative z-10 mx-auto flex min-h-[32rem] w-full max-w-5xl flex-col items-center justify-center px-5 text-center sm:min-h-[36rem] sm:px-6"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.45em] text-white/90">
+          <p className="text-xs font-semibold uppercase tracking-[0.48em] text-amber-200">
             Contact Us
           </p>
-          <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Let&apos;s Connect With Noza Convent School
           </h1>
-          <p className="mt-5 max-w-3xl text-base leading-8 text-white/80 sm:text-lg md:text-xl">
+          <p className="mt-6 max-w-2xl text-base leading-8 text-white/85 sm:text-lg md:text-xl">
             We&apos;re always here to answer your questions, guide admissions, and help you connect with our school.
           </p>
         </motion.div>
       </motion.section>
 
-      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
+      <section className="relative -mt-10 bg-transparent px-4 pb-16 sm:px-6 sm:pb-20 md:pb-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {quickContactCards.map((card, index) => {
@@ -370,16 +369,16 @@ export default function Contact() {
                   viewport={{ once: true, amount: 0.25 }}
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className="group rounded-3xl border border-[#CFE6B7] bg-white p-6 shadow-xl transition-all duration-300 hover:shadow-2xl"
+                  className="group flex min-h-[17rem] flex-col rounded-[1.5rem] border border-slate-200/80 bg-white p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.38)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_30px_70px_-35px_rgba(15,23,42,0.5)]"
                 >
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF8E7] text-[#5E8C31] transition duration-300 group-hover:bg-[#DDEFCF]">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-lime-50 text-lime-700 ring-8 ring-lime-50/70 transition duration-300 group-hover:rotate-3 group-hover:bg-amber-50 group-hover:text-amber-700 group-hover:ring-amber-50/70">
                     <Icon className="text-2xl" />
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#5E8C31]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-600">
                     {card.label}
                   </p>
-                  <h3 className="mt-2 text-lg font-semibold text-[#1F2937]">{card.value}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#64748B]">{card.helper}</p>
+                  <h3 className="mt-2 break-words text-base font-semibold leading-7 text-slate-950 sm:text-lg">{card.value}</h3>
+                  <p className="mt-auto pt-5 text-sm leading-7 text-slate-500">{card.helper}</p>
                 </motion.a>
               );
             })}
@@ -387,14 +386,14 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="bg-[#EEF8E7]/35 px-4 py-16 sm:px-6 sm:py-20 md:py-24">
+      <section className="border-y border-slate-200/70 bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="rounded-[28px] border border-[#CFE6B7] bg-white p-6 shadow-[0_12px_40px_rgba(31,41,55,0.08)] sm:p-8"
+            className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_24px_60px_-35px_rgba(15,23,42,0.35)] sm:p-8"
           >
             <SectionHeading
               label="Reach Out"
@@ -408,7 +407,7 @@ export default function Contact() {
                   initial={{ opacity: 0, y: 10, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.98 }}
-                  className="mb-6 flex items-center gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700"
+                  className="mb-6 flex items-center gap-3 rounded-2xl border border-lime-200 bg-lime-50 px-4 py-3 text-sm text-lime-800"
                 >
                   <MdCheckCircle className="text-lg" />
                   Opening WhatsApp with your enquiry...
@@ -471,7 +470,7 @@ export default function Contact() {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="message" className="mb-2 block text-sm font-semibold text-[#1F2937]">
+                <label htmlFor="message" className="mb-2 block text-sm font-semibold text-slate-900">
                   Message
                 </label>
                 <textarea
@@ -480,10 +479,10 @@ export default function Contact() {
                   onChange={(e) => setForm((prev) => ({ ...prev, message: e.target.value }))}
                   placeholder="Write your message here"
                   rows={5}
-                  className={`w-full rounded-2xl border bg-white px-4 py-3 text-sm text-[#1F2937] outline-none transition duration-300 placeholder:text-[#64748B]/70 focus:shadow-[0_0_0_4px_rgba(94,140,49,0.12)] ${
+                  className={`w-full rounded-2xl border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition duration-300 placeholder:text-slate-400 focus:shadow-[0_0_0_4px_rgba(245,158,11,0.14)] ${
                     errors.message
                       ? "border-red-300 focus:border-red-400"
-                      : "border-[#CFE6B7] focus:border-[#5E8C31]"
+                      : "border-slate-200 focus:border-amber-500"
                   }`}
                 />
                 {errors.message ? (
@@ -500,7 +499,7 @@ export default function Contact() {
                   disabled={isSubmitting}
                   whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-[linear-gradient(135deg,#5E8C31,#6EA73D)] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-80"
+                  className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-slate-950 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_18px_40px_-20px_rgba(15,23,42,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-[0_24px_48px_-20px_rgba(15,23,42,0.75)] disabled:cursor-not-allowed disabled:opacity-80"
                 >
                   {isSubmitting ? (
                     <>
@@ -528,25 +527,25 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative overflow-hidden rounded-[28px] border border-[#CFE6B7] bg-white p-6 shadow-[0_12px_40px_rgba(31,41,55,0.08)] sm:p-8"
+            className="relative overflow-hidden rounded-[1.75rem] border border-slate-800 bg-slate-950 p-6 text-white shadow-[0_24px_60px_-30px_rgba(15,23,42,0.65)] sm:p-8"
           >
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#EEF8E7] blur-3xl" />
-            <div className="absolute -bottom-14 -left-10 h-44 w-44 rounded-full bg-[#DDEFCF] blur-3xl" />
+            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-lime-400/20 blur-3xl" />
+            <div className="absolute -bottom-14 -left-10 h-44 w-44 rounded-full bg-amber-400/15 blur-3xl" />
 
             <div className="relative">
               <div className="flex items-center gap-4">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#EEF8E7] shadow-sm">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">
                   <Image src="/images/logo.png" alt="Noza Convent School Logo" width={48} height={48} className="h-12 w-12 object-contain" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#5E8C31]">Noza Convent School</p>
-                  <h3 className="mt-1 text-2xl font-semibold text-[#1F2937]">We&apos;re here to help</h3>
+                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-lime-300">Noza Convent School</p>
+                  <h3 className="mt-1 text-2xl font-semibold text-white">We&apos;re here to help</h3>
                 </div>
               </div>
 
-              <div className="mt-6 rounded-3xl border border-[#CFE6B7] bg-[#EEF8E7]/60 p-5 shadow-sm">
-                <p className="text-sm leading-7 text-[#64748B]">
-                  <span className="font-semibold text-[#1F2937]">Principal Message:</span> We welcome every enquiry and are committed to guiding families with clarity and care.
+              <div className="mt-6 rounded-3xl border border-white/10 bg-white/10 p-5 shadow-sm">
+                <p className="text-sm leading-7 text-white/70">
+                  <span className="font-semibold text-white">Principal Message:</span> We welcome every enquiry and are committed to guiding families with clarity and care.
                 </p>
               </div>
 
@@ -556,17 +555,11 @@ export default function Contact() {
                 <InfoPill icon={FaClock} title="Working Hours" value="Mon - Sat | 8:00 AM - 6:00 PM" />
               </div>
 
-              <div className="mt-5 grid gap-4 sm:grid-cols-[1fr_auto]">
-                <div className="rounded-3xl border border-dashed border-[#CFE6B7] bg-[#EEF8E7]/55 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#5E8C31]">QR Code Placeholder</p>
-                  <div className="mt-4 flex h-36 items-center justify-center rounded-2xl bg-white shadow-inner">
-                    <MdOutlineQrCode2 className="text-6xl text-[#5E8C31]" />
-                  </div>
-                </div>
-                <div className="flex flex-col justify-between gap-3 rounded-3xl border border-[#CFE6B7] bg-white p-5 shadow-sm">
+              <div className="mt-5">
+                <div className="flex flex-col justify-between gap-3 rounded-3xl border border-white/10 bg-white/5 p-5 shadow-sm">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#5E8C31]">Need help fast?</p>
-                    <p className="mt-2 text-sm leading-7 text-[#64748B]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-300">Need help fast?</p>
+                    <p className="mt-2 text-sm leading-7 text-white/65">
                       Use WhatsApp or call our office for a quick response.
                     </p>
                   </div>
@@ -574,7 +567,7 @@ export default function Contact() {
                     href={CONTACT.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-full bg-[linear-gradient(135deg,#5E8C31,#6EA73D)] px-5 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:bg-[linear-gradient(135deg,#4f7427,#5E8C31)]"
+                    className="inline-flex items-center justify-center rounded-full bg-lime-400 px-5 py-3 text-sm font-semibold text-lime-950 shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-lime-300"
                   >
                     <FaWhatsapp className="mr-2 text-base" />
                     WhatsApp Us
@@ -586,7 +579,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
+      <section className="bg-slate-50 px-4 py-16 sm:px-6 sm:py-20 md:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             label="Visit Us"
@@ -599,7 +592,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="overflow-hidden rounded-[28px] border border-[#CFE6B7] bg-white shadow-[0_12px_40px_rgba(31,41,55,0.08)]"
+            className="overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-[0_24px_60px_-35px_rgba(15,23,42,0.35)]"
           >
             <div className="relative h-95 sm:h-112.5 lg:h-130">
               <iframe
@@ -612,15 +605,15 @@ export default function Contact() {
                 className="h-full w-full"
               />
             </div>
-            <div className="flex flex-col gap-4 border-t border-[#CFE6B7] bg-[#EEF8E7]/45 p-5 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm leading-7 text-[#64748B]">
-                <span className="font-semibold text-[#1F2937]">Address:</span> Noza Convent School, Maniar, Chhitoni, Dewrar, Uttar Pradesh 277302
+            <div className="flex flex-col gap-4 border-t border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm leading-7 text-slate-600">
+                <span className="font-semibold text-slate-950">Address:</span> Noza Convent School, Maniar, Chhitoni, Dewrar, Uttar Pradesh 277302
               </p>
               <a
                 href={CONTACT.locationUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[#5E8C31] px-5 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:bg-[#6EA73D] hover:shadow-lg"
+                className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg"
               >
                 <FaDirections className="mr-2" />
                 Directions
@@ -630,7 +623,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="bg-[#EEF8E7]/35 px-4 py-16 sm:px-6 sm:py-20 md:py-24">
+      <section className="border-y border-slate-200/70 bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             label="Why Contact Us"
@@ -650,13 +643,13 @@ export default function Contact() {
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                   whileHover={{ y: -8, scale: 1.02 }}
-                  className="rounded-3xl border border-[#CFE6B7] bg-white p-6 shadow-xl transition-all duration-300 hover:shadow-2xl"
+                  className="group rounded-[1.5rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_50px_-32px_rgba(15,23,42,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-amber-200 hover:shadow-[0_28px_60px_-32px_rgba(15,23,42,0.42)]"
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EEF8E7] text-[#5E8C31]">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-lime-50 text-lime-700 ring-8 ring-lime-50/70 transition duration-300 group-hover:rotate-3 group-hover:bg-amber-50 group-hover:text-amber-700">
                     <Icon className="text-xl" />
                   </div>
-                  <h3 className="text-lg font-semibold text-[#1F2937]">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#64748B]">{item.description}</p>
+                  <h3 className="text-lg font-semibold text-slate-950">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
                 </motion.article>
               );
             })}
@@ -664,7 +657,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
+      <section className="bg-slate-50 px-4 py-16 sm:px-6 sm:py-20 md:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             label="FAQ"
@@ -682,18 +675,18 @@ export default function Contact() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.45, delay: index * 0.05 }}
-                  className="overflow-hidden rounded-3xl border border-[#CFE6B7] bg-white shadow-[0_12px_40px_rgba(31,41,55,0.08)]"
+                  className="overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white shadow-[0_18px_48px_-32px_rgba(15,23,42,0.35)]"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(open ? null : index)}
                     className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   >
-                    <span className="text-base font-semibold text-[#1F2937] sm:text-lg">{item.question}</span>
+                    <span className="text-base font-semibold text-slate-950 sm:text-lg">{item.question}</span>
                     {open ? (
-                      <FaChevronUp className="shrink-0 text-[#5E8C31]" />
+                      <FaChevronUp className="shrink-0 text-amber-600" />
                     ) : (
-                      <FaChevronDown className="shrink-0 text-[#5E8C31]" />
+                      <FaChevronDown className="shrink-0 text-amber-600" />
                     )}
                   </button>
                   <AnimatePresence initial={false}>
@@ -703,9 +696,9 @@ export default function Contact() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="overflow-hidden border-t border-[#CFE6B7] px-6 py-5"
+                        className="overflow-hidden border-t border-slate-200 px-6 py-5"
                       >
-                        <p className="text-sm leading-7 text-[#64748B] sm:text-base">{item.answer}</p>
+                        <p className="text-sm leading-7 text-slate-600 sm:text-base">{item.answer}</p>
                       </motion.div>
                     ) : null}
                   </AnimatePresence>
@@ -716,18 +709,18 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="bg-[linear-gradient(135deg,#EEF8E7,#DDEFCF)] px-4 py-16 sm:px-6 sm:py-20 md:py-24">
+      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="rounded-4xl border border-[#CFE6B7] bg-white px-6 py-10 shadow-[0_12px_40px_rgba(31,41,55,0.08)] sm:px-8 sm:py-12 md:px-12">
+          <div className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950 px-6 py-10 shadow-[0_28px_70px_-35px_rgba(15,23,42,0.6)] sm:px-8 sm:py-12 md:px-12">
             <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.45em] text-[#5E8C31]">
+                <p className="text-xs font-semibold uppercase tracking-[0.45em] text-amber-300">
                   Next Step
                 </p>
-                <h2 className="mt-4 text-2xl font-semibold tracking-tight text-[#1F2937] sm:text-3xl md:text-4xl">
+                <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl md:text-4xl">
                   Ready to Visit Our Campus?
                 </h2>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-[#64748B] sm:text-base sm:leading-8 md:text-lg">
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-white/65 sm:text-base sm:leading-8 md:text-lg">
                   We would be glad to meet you, answer your questions, and help you take the next step with confidence.
                 </p>
               </div>
@@ -737,13 +730,13 @@ export default function Contact() {
                   href={CONTACT.locationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-[#5E8C31] px-6 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:bg-[#6EA73D] hover:shadow-lg"
+                  className="inline-flex items-center justify-center rounded-full bg-lime-400 px-6 py-3 text-sm font-semibold text-lime-950 shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-lime-300 hover:shadow-lg"
                 >
                   Book a School Visit
                 </a>
                 <a
                   href={CONTACT.phoneUrl}
-                  className="inline-flex items-center justify-center rounded-full border border-[#CFE6B7] bg-white px-6 py-3 text-sm font-semibold text-[#1F2937] shadow-md transition duration-300 hover:border-[#5E8C31] hover:text-[#5E8C31] hover:shadow-lg"
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:border-amber-300 hover:bg-white/15 hover:text-amber-200 hover:shadow-lg"
                 >
                   Call Now
                 </a>

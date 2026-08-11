@@ -2,13 +2,23 @@
 
 import { motion } from "framer-motion";
 
-export default function HeroAbout() {
+type HeroAboutProps = {
+  title?: string;
+  subtitle?: string;
+  backgroundImage?: string;
+};
+
+export default function HeroAbout({
+  title = "About Us",
+  subtitle =
+    "Shaping future leaders through quality education, strong values, and a nurturing environment.",
+  backgroundImage = "/images/computer-lab.jpeg",
+}: HeroAboutProps) {
   return (
     <section
       className="relative py-60 text-center"
       style={{
-        background:
-          "url(/images/computer-lab.jpeg) no-repeat center center/cover",
+        background: `url(${backgroundImage}) no-repeat center center/cover`,
       }}
     >
       <div className="bg-linear-to-t from-lime-600/30 to-lime-600/40 absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center">
@@ -19,7 +29,7 @@ export default function HeroAbout() {
           viewport={{ once: true }}
           className="text-3xl md:text-5xl font-bold text-white"
         >
-          About Us
+          {title}
         </motion.h1>
 
         <motion.p
@@ -29,8 +39,7 @@ export default function HeroAbout() {
           viewport={{ once: true }}
           className="max-w-2xl mx-auto mt-6 text-gray-50 text-base md:text-lg"
         >
-          Shaping future leaders through quality education, strong values, and a
-          nurturing environment.
+          {subtitle}
         </motion.p>
       </div>
     </section>

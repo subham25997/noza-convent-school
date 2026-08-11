@@ -22,6 +22,7 @@
 
 # misc
 .DS_Store
+Microsoft/Windows/PowerShell/ModuleAnalysisCache
 *.pem
 .env
 

@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import {
   BiBook,
   BiBrain,
+  BiBookOpen,
+  BiHappyBeaming,
   BiLayer,
   BiTrendingUp,
 } from "react-icons/bi";
@@ -54,14 +56,20 @@ const stageCards = [
   {
     title: "Early Years",
     items: ["Language readiness", "Motor skills", "Creative play"],
+    icon: BiHappyBeaming,
+    tone: "lime",
   },
   {
     title: "Primary",
     items: ["Mathematics", "Environmental Science", "English & Hindi"],
+    icon: BiBookOpen,
+    tone: "amber",
   },
   {
     title: "Secondary",
     items: ["Science", "Social Studies", "Board preparation"],
+    icon: BiTrendingUp,
+    tone: "navy",
   },
 ];
 
@@ -169,27 +177,54 @@ export default function Academics() {
               viewport={{ once: true, amount: 0.18 }}
               className="grid gap-5 sm:gap-6 md:grid-cols-3"
             >
-              {stageCards.map((subject, i) => (
-                <motion.article
-                  key={i}
-                  variants={itemVariants}
-                  transition={{ duration: 0.3 }}
-                  className="group relative min-h-56 h-full overflow-hidden bg-linear-to-br from-lime-800 via-lime-900 to-green-950 px-6 py-8 rounded-2xl shadow-xl border border-lime-600/50 transition-all duration-300 ease-out cursor-pointer"
-                >
-                  <h3 className="text-base sm:text-lg font-semibold text-white">
-                    {subject.title}
-                  </h3>
+              {stageCards.map((subject, i) => {
+                const Icon = subject.icon;
+                const iconStyle =
+                  subject.tone === "amber"
+                    ? "bg-amber-50 text-amber-700 ring-amber-100"
+                    : subject.tone === "navy"
+                      ? "bg-slate-100 text-slate-800 ring-slate-200"
+                      : "bg-lime-50 text-lime-700 ring-lime-100";
+                const accentStyle =
+                  subject.tone === "amber"
+                    ? "hover:border-amber-300"
+                    : subject.tone === "navy"
+                      ? "hover:border-slate-300"
+                    : "hover:border-lime-300";
 
-                  <ul className="mt-5 space-y-3 text-sm sm:text-[0.98rem] text-lime-100">
-                    {subject.items.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-400" />
-                        <span className="leading-7">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.article>
-              ))}
+                return (
+                  <motion.article
+                    key={i}
+                    variants={itemVariants}
+                    transition={{ duration: 0.3 }}
+                    className={`group relative min-h-56 h-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white px-6 py-7 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.35)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_28px_60px_-32px_rgba(15,23,42,0.4)] ${accentStyle}`}
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div
+                        className={`grid size-12 place-items-center rounded-2xl ring-8 transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105 ${iconStyle}`}
+                      >
+                        <Icon className="text-2xl" aria-hidden />
+                      </div>
+                      <span className="text-5xl font-bold leading-none tracking-[-0.08em] text-slate-100 transition-colors duration-300 group-hover:text-lime-100">
+                        0{i + 1}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-6 text-base font-semibold text-slate-950 sm:text-lg">
+                      {subject.title}
+                    </h3>
+
+                    <ul className="mt-5 space-y-3 text-sm text-slate-600 sm:text-[0.98rem]">
+                      {subject.items.map((item, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-400" />
+                          <span className="leading-7">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.article>
+                );
+              })}
             </motion.div>
           </div>
         </section>

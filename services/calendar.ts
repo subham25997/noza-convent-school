@@ -127,15 +127,15 @@ function normalizeType(value: string) {
 function getEventColor(type: string) {
   switch (type) {
     case "academic":
-      return "bg-blue-500";
+      return "bg-lime-600";
     case "holiday":
-      return "bg-red-500";
+      return "bg-rose-500";
     case "event":
-      return "bg-purple-500";
-    case "break":
       return "bg-amber-500";
+    case "break":
+      return "bg-slate-600";
     case "meeting":
-      return "bg-green-500";
+      return "bg-emerald-600";
     default:
       return "bg-slate-500";
   }
