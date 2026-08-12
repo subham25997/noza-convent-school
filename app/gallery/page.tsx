@@ -11,7 +11,7 @@ async function getGallery2Images() {
   return entries
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
-    .filter((name) => /\.(jpe?g|png|webp|avif)$/i.test(name))
+    .filter((name) => /^g(?:[1-9]|[1-4][0-9]|50)\.(jpe?g|png|webp|avif)$/i.test(name))
     .sort((left, right) => left.localeCompare(right, undefined, { numeric: true }));
 }
 

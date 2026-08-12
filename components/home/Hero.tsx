@@ -72,7 +72,7 @@ export default function Hero() {
               </div>
 
               <div className="py-6 px-10 flex flex-col justify-center">
-                <h1 className="text-3xl sm:text-4xl md:text-6xl mb-5 font-bold text-white text-center">
+                <h1 className="max-w-4xl text-3xl font-bold leading-tight sm:text-4xl md:text-5xl text-white text-center">
                   {slides[index].title}
                 </h1>
 
