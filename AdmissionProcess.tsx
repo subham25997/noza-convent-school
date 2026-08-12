@@ -140,11 +140,11 @@ export default function AdmissionProcess() {
                 const style = stepStyles[index];
                 return (
                   <motion.li key={step.title} {...reveal} transition={{ duration: 0.55, delay: index * 0.08 }} className="group relative pl-12 lg:pl-0">
-                    <div className="absolute left-0 top-7 z-10 grid size-8 place-items-center rounded-full border-4 border-white bg-slate-950 text-[0.62rem] font-bold text-white shadow-sm lg:relative lg:left-auto lg:top-auto lg:mx-auto lg:mb-[-1.55rem]">
+                    <div className="absolute left-0 top-7 z-10 grid size-8 place-items-center rounded-full border-4 border-white bg-lime-700 text-[0.62rem] font-bold text-white shadow-sm lg:relative lg:left-auto lg:top-auto lg:mx-auto lg:mb-[-1.55rem]">
                       {String(index + 1).padStart(2, "0")}
                     </div>
                     <article className={`relative min-h-[17.5rem] overflow-hidden rounded-[1.75rem] border bg-white p-6 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.3)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-30px_rgba(15,23,42,0.38)] sm:p-7 lg:pt-10 ${style.card}`}>
-                      <span aria-hidden className={`pointer-events-none absolute right-4 top-0 text-[6.5rem] font-bold leading-none tracking-[-0.08em] transition-colors duration-300 ${style.number}`}>{String(index + 1).padStart(2, "0")}</span>
+                      <span aria-hidden className={`pointer-events-none absolute right-4 top-0 text-[3rem] font-bold leading-none tracking-[-0.08em] transition-colors duration-300 ${style.number}`}>{String(index + 1).padStart(2, "0")}</span>
                       <div className={`relative grid size-14 place-items-center rounded-2xl border border-slate-100 ring-8 transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105 ${style.icon}`}><Icon aria-hidden className="text-[1.65rem]" /></div>
                       <h2 className="relative mt-6 max-w-[12rem] text-xl font-semibold leading-tight tracking-tight text-slate-950">{step.title}</h2>
                       <p className="relative mt-3 text-sm leading-7 text-slate-600">{step.description}</p>
