@@ -41,17 +41,25 @@ export default function CalenderPage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section
-        className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-8 bg-gradient-to-br from-lime-700/90 via-lime-600/99 to-lime-700/90"
+      <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-8 bg-gradient-to-br from-lime-700/90 via-lime-600/99 to-lime-700/90">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: "url('/images/academic-calendar.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
-        <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "url('/images/academic-calendar.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-white" />
           <div className="absolute -bottom-10 -left-10 h-60 w-60 rounded-full bg-white" />
         </div>
         <div className="relative mx-auto max-w-7xl">
-          <h1 className="mt-3 text-center text-4xl font-bold text-white sm:text-5xl">Academic Calendar</h1>
-          <p className="mt-4 text-center max-w-7xl text-lg text-white/90">
-            Stay updated with important dates, events, holidays, and academic milestones throughout the year.
+          <h1 className="mt-3 text-center text-4xl font-bold text-white sm:text-5xl">
+            Academic Calendar
+          </h1>
+          <p className="mt-4 text-center max-w-7xl text-lg text-gray-50">
+            Stay updated with important dates, events, holidays, and academic
+            milestones throughout the year.
           </p>
         </div>
       </section>
@@ -62,17 +70,29 @@ export default function CalenderPage() {
           {/* Month Selector */}
           <div className="mb-10 flex items-center justify-between rounded-2xl bg-amber-500/90 p-4 shadow-sm ring-1 ring-gray-200/50">
             <button
-              onClick={() => setSelectedMonth((prev) => (prev === 0 ? 11 : prev - 1))}
+              onClick={() =>
+                setSelectedMonth((prev) => (prev === 0 ? 11 : prev - 1))
+              }
               className="rounded-xl p-2 transition-color"
             >
-              <BiChevronLeft size={24} className="text-white cursor-pointer hover:transform hover:scale-110" />
+              <BiChevronLeft
+                size={24}
+                className="text-white cursor-pointer hover:transform hover:scale-110"
+              />
             </button>
-            <h2 className="text-xl font-bold text-white sm:text-2xl">{months[selectedMonth]} {new Date().getFullYear()}</h2>
+            <h2 className="text-xl font-bold text-white sm:text-2xl">
+              {months[selectedMonth]} {new Date().getFullYear()}
+            </h2>
             <button
-              onClick={() => setSelectedMonth((prev) => (prev === 11 ? 0 : prev + 1))}
+              onClick={() =>
+                setSelectedMonth((prev) => (prev === 11 ? 0 : prev + 1))
+              }
               className="rounded-xl p-2 transition-colors"
             >
-              <BiChevronRight size={24} className="text-white cursor-pointer hover:transform hover:scale-110" />
+              <BiChevronRight
+                size={24}
+                className="text-white cursor-pointer hover:transform hover:scale-110"
+              />
             </button>
           </div>
 
@@ -101,7 +121,9 @@ export default function CalenderPage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100">
                     <BiCalendar className="text-xl text-amber-600" />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900">Events & Dates</h3>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    Events & Dates
+                  </h3>
                 </div>
 
                 {isLoading ? (
@@ -118,13 +140,23 @@ export default function CalenderPage() {
                         key={`${event.month}-${event.day}-${event.title}-${index}`}
                         className="flex items-center gap-4 rounded-xl border border-gray-100 bg-gray-50/50 p-4 transition-all hover:border-orange-200 hover:bg-orange-50/30"
                       >
-                        <div className={`flex h-12 w-12 flex-shrink-0 flex-col items-center justify-center rounded-xl text-white ${event.color}`}>
-                          <span className="text-xs font-medium opacity-80">{months[selectedMonth].slice(0, 3)}</span>
-                          <span className="text-lg font-bold leading-none">{event.day}</span>
+                        <div
+                          className={`flex h-12 w-12 flex-shrink-0 flex-col items-center justify-center rounded-xl text-white ${event.color}`}
+                        >
+                          <span className="text-xs font-medium opacity-80">
+                            {months[selectedMonth].slice(0, 3)}
+                          </span>
+                          <span className="text-lg font-bold leading-none">
+                            {event.day}
+                          </span>
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900">{event.title}</h4>
-                          <p className="mt-1 text-sm text-gray-500 capitalize">{event.type}</p>
+                          <h4 className="font-semibold text-gray-900">
+                            {event.title}
+                          </h4>
+                          <p className="mt-1 text-sm text-gray-500 capitalize">
+                            {event.type}
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -134,7 +166,9 @@ export default function CalenderPage() {
                     <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
                       <BiCalendar className="text-2xl text-gray-400" />
                     </div>
-                    <p className="text-gray-500">No events scheduled for this month</p>
+                    <p className="text-gray-500">
+                      No events scheduled for this month
+                    </p>
                   </div>
                 )}
               </div>
@@ -149,7 +183,9 @@ export default function CalenderPage() {
                   {legend.map((item) => (
                     <div key={item.label} className="flex items-center gap-3">
                       <div className={`h-3 w-3 rounded-full ${item.color}`} />
-                      <span className="text-sm text-gray-600">{item.label}</span>
+                      <span className="text-sm text-gray-600">
+                        {item.label}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -157,14 +193,21 @@ export default function CalenderPage() {
 
               {/* Quick Stats */}
               <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200/50">
-                <h3 className="mb-4 font-bold text-gray-900">Year at a Glance</h3>
+                <h3 className="mb-4 font-bold text-gray-900">
+                  Year at a Glance
+                </h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100">
                       <BiBook className="text-lg text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-gray-900">{events.filter((event) => event.type === "academic").length}</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {
+                          events.filter((event) => event.type === "academic")
+                            .length
+                        }
+                      </p>
                       <p className="text-xs text-gray-500">Academic Days</p>
                     </div>
                   </div>
@@ -173,7 +216,12 @@ export default function CalenderPage() {
                       <BiFlag className="text-lg text-red-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-gray-900">{events.filter((event) => event.type === "holiday").length}</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {
+                          events.filter((event) => event.type === "holiday")
+                            .length
+                        }
+                      </p>
                       <p className="text-xs text-gray-500">Holidays</p>
                     </div>
                   </div>
@@ -182,7 +230,12 @@ export default function CalenderPage() {
                       <BiStar className="text-lg text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-gray-900">{events.filter((event) => event.type === "event").length}</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {
+                          events.filter((event) => event.type === "event")
+                            .length
+                        }
+                      </p>
                       <p className="text-xs text-gray-500">Events</p>
                     </div>
                   </div>

@@ -33,7 +33,7 @@ export default function HeroAcademics() {
             Nursery to Class 12: Learning at Every Step
           </h1>
 
-          <p className="mt-5 text-base sm:text-lg md:text-xl leading-8 text-white/70">
+          <p className="mt-5 text-base sm:text-lg md:text-xl leading-8 text-gray-50">
             A complete school journey that balances early childhood discovery,
             strong fundamentals, and confident Class 12 board preparation.
           </p>

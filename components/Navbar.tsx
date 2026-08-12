@@ -21,7 +21,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
-  const navRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   const navLinks: NavItem[] = [
     { href: "/", label: "Home" },
@@ -260,14 +260,12 @@ export default function Navbar() {
       </div>
 
       <motion.nav
+        ref={navRef}
         initial={false}
         whileInView={{}}
         className="sticky top-0 z-50 bg-white shadow-md transition-all duration-300"
       >
-        <div
-          ref={navRef}
-          className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16"
-        >
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
           <Link href="/" className="flex gap-2 items-center">
             <img
               src="/images/logo.png"
@@ -315,7 +313,7 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden bg-white/95 backdrop-blur-lg shadow-lg overflow-hidden"
+              className="lg:hidden bg-white/95 backdrop-blur-lg shadow-lg overflow-hidden"
             >
               <ul className="flex flex-col py-4 font-semibold text-gray-900">
                 {navLinks.map((link) => renderNavItem(link, true))}
