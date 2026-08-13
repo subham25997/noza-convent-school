@@ -37,7 +37,7 @@ export default function HeroAdmission({
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
           <a
-            href="#enquire"
+            href="/contact"
             className="group inline-flex items-center gap-2 rounded-full bg-lime-600 px-7 py-3.5 text-sm font-semibold text-white shadow-[0_18px_38px_-18px_rgba(101,163,13,0.55)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-lime-700 hover:shadow-[0_22px_44px_-18px_rgba(101,163,13,0.65)]"
           >
             Start your enquiry
