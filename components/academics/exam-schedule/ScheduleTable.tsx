@@ -7,6 +7,7 @@ import {
   BiErrorCircle,
   BiLoaderAlt,
   BiCalendarStar,
+  BiDownload,
 } from "react-icons/bi";
 import {
   getSchedule,
@@ -122,6 +123,7 @@ export default function ScheduleTable() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
+      id="exam-schedule-printable"
       className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_24px_60px_-40px_rgba(15,23,42,0.35)]"
     >
       {/* ================= HEADER ================= */}
@@ -141,54 +143,74 @@ export default function ScheduleTable() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
-            <span className="flex items-center gap-2">
-              <span className="h-3 w-1 rounded-full bg-amber-500" aria-hidden />
-              Exam
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="h-3 w-1 rounded-full bg-lime-500" aria-hidden />
-              Prep / Holiday
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="h-3 w-1 rounded-full bg-slate-200" aria-hidden />
-              No exam
-            </span>
+          <div className="flex flex-col items-start gap-3 sm:items-end">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="print:hidden inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700"
+            >
+              <BiDownload className="text-sm" aria-hidden />
+              Export as PDF
+            </button>
+
+            <div className="flex flex-wrap mt-5 items-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
+              <span className="flex items-center gap-2">
+                <span
+                  className="h-3 w-1 rounded-full bg-amber-500"
+                  aria-hidden
+                />
+                Exam
+              </span>
+              <span className="flex items-center gap-2">
+                <span
+                  className="h-3 w-1 rounded-full bg-lime-500"
+                  aria-hidden
+                />
+                Prep / Holiday
+              </span>
+              <span className="flex items-center gap-2">
+                <span
+                  className="h-3 w-1 rounded-full bg-slate-200"
+                  aria-hidden
+                />
+                No exam
+              </span>
+            </div>
           </div>
         </div>
 
         <p className="mt-6 max-w-3xl text-xs leading-relaxed text-slate-500 sm:text-[13px]">
-          Maintained by the school office. Not every class sits every date
-          some have fewer exams or a preparation day instead. Updates appear
-          here automatically.
+          Maintained by the school office. Not every class sits every date some
+          have fewer exams or a preparation day instead. Updates appear here
+          automatically.
         </p>
       </div>
 
       {/* ================= TABLE ================= */}
-      <div className="overflow-x-auto [scrollbar-width:thin]">
-        <table className="w-full min-w-[900px] border-separate border-spacing-0 text-sm">
+      <div className="overflow-x-auto [scrollbar-width:thin] print:overflow-visible">
+        <table className="w-full min-w-[900px] border-separate border-spacing-0 text-sm print:min-w-0 print:w-full print:table-fixed">
           <thead>
             <tr>
-              <th className="sticky left-0 z-20 w-[170px] min-w-[170px] border-b border-slate-200 bg-white px-6 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+              <th className="sticky left-0 z-20 w-[170px] min-w-[170px] border-b border-slate-200 bg-white px-6 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 print:static print:px-2 print:py-2">
                 Class
               </th>
               {formattedDates.map((d, i) => (
                 <th
                   key={schedule.dates[i]}
-                  className={`border-b border-slate-200 px-4 py-4 text-left ${
+                  className={`border-b border-slate-200 px-4 py-4 text-left print:px-2 print:py-2 ${
                     d.isToday ? "bg-lime-50/60" : "bg-white"
                   }`}
                 >
                   <div className="flex items-baseline gap-2">
-                    <span className="text-[17px] font-semibold tabular-nums leading-none text-slate-900">
+                    <span className="text-[17px] font-semibold tabular-nums leading-none text-slate-900 print:text-[12px]">
                       {d.day}
                     </span>
-                    <span className="text-xs font-medium text-slate-500">
+                    <span className="text-xs font-medium text-slate-500 print:text-[10px]">
                       {d.month}
                     </span>
                   </div>
                   <div
-                    className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+                    className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] print:text-[8px] ${
                       d.isToday ? "text-lime-700" : "text-slate-400"
                     }`}
                   >
@@ -203,8 +225,8 @@ export default function ScheduleTable() {
             {schedule.classes.map((cls) => {
               const dayByDate = new Map(cls.days.map((d) => [d.date, d]));
               return (
-                <tr key={cls.class} className="group">
-                  <td className="sticky left-0 z-10 border-b border-slate-100 bg-white px-6 py-5 align-top text-[15px] font-semibold text-slate-900 transition-colors group-hover:bg-slate-50">
+                <tr key={cls.class} className="group print:break-inside-avoid">
+                  <td className="sticky left-0 z-10 border-b border-slate-100 bg-white px-6 py-5 align-top text-[15px] font-semibold text-slate-900 transition-colors group-hover:bg-slate-50 print:static print:px-2 print:py-2 print:text-[12px]">
                     {cls.class}
                   </td>
 
@@ -214,7 +236,7 @@ export default function ScheduleTable() {
                     return (
                       <td
                         key={date}
-                        className="border-b border-l border-slate-100 px-4 py-5 align-top transition-colors group-hover:bg-slate-50/70"
+                        className="border-b border-l border-slate-100 px-4 py-5 align-top transition-colors group-hover:bg-slate-50/70 print:px-2 print:py-2"
                       >
                         {!entry ? (
                           <span
@@ -222,34 +244,34 @@ export default function ScheduleTable() {
                             aria-hidden
                           />
                         ) : entry.slots.length > 0 ? (
-                          <div className="flex flex-col gap-4">
+                          <div className="flex flex-col gap-4 print:gap-2">
                             {entry.slots.map((slot) => (
                               <div
                                 key={slot.shift}
-                                className="border-l-2 border-amber-400 pl-3"
+                                className="border-l-2 border-amber-400 pl-3 print:pl-2"
                               >
                                 {slot.subject && (
-                                  <p className="text-[15px] font-semibold leading-tight text-slate-900">
+                                  <p className="text-[15px] font-semibold leading-tight text-slate-900 print:text-[11px]">
                                     {slot.subject}
                                   </p>
                                 )}
-                                <p className="mt-1 text-[13px] font-medium tabular-nums text-slate-600">
+                                <p className="mt-1 text-[13px] font-medium tabular-nums text-slate-600 print:mt-0.5 print:text-[10px]">
                                   {slot.from} – {slot.to}
                                 </p>
-                                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-600">
+                                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-600 print:text-[8px]">
                                   Shift {slot.shift}
                                 </p>
                               </div>
                             ))}
                             {entry.note && (
-                              <p className="text-[11px] italic leading-snug text-slate-400">
+                              <p className="text-[11px] italic leading-snug text-slate-400 print:text-[9px]">
                                 {entry.note}
                               </p>
                             )}
                           </div>
                         ) : (
-                          <div className="border-l-2 border-lime-500 pl-3">
-                            <p className="text-[14px] font-medium leading-tight text-lime-700">
+                          <div className="border-l-2 border-lime-500 pl-3 print:pl-2">
+                            <p className="text-[14px] font-medium leading-tight text-lime-700 print:text-[10px]">
                               {entry.note || "Holiday"}
                             </p>
                           </div>
@@ -264,9 +286,36 @@ export default function ScheduleTable() {
         </table>
       </div>
 
-      <p className="px-6 py-4 text-[11px] text-slate-400 sm:hidden">
+      <p className="px-6 py-4 text-[11px] text-slate-400 sm:hidden print:hidden">
         Swipe horizontally to see all dates →
       </p>
+
+      <style jsx global>{`
+        @media print {
+          @page {
+            size: landscape;
+            margin: 12mm;
+          }
+
+          body * {
+            visibility: hidden;
+          }
+
+          #exam-schedule-printable,
+          #exam-schedule-printable * {
+            visibility: visible;
+          }
+
+          #exam-schedule-printable {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 }
