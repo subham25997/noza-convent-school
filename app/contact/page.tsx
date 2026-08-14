@@ -159,7 +159,7 @@ function InfoPill({
 }) {
   return (
     <div className="flex items-start gap-3 rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm backdrop-blur-sm">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-lime-50 text-lime-700">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center text-lime-700">
         <Icon className="text-base" />
       </div>
       <div>
@@ -567,7 +567,7 @@ export default function Contact() {
                     href={CONTACT.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-full bg-lime-500 px-5 py-3 text-sm font-semibold text-lime-950 shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-lime-300"
+                    className="inline-flex items-center justify-center rounded-full bg-lime-600 px-5 py-3 text-sm font-semibold text-lime-950 shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-lime-500"
                   >
                     <FaWhatsapp className="mr-2 text-base" />
                     WhatsApp Us
