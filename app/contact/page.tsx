@@ -567,7 +567,7 @@ export default function Contact() {
                     href={CONTACT.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-full bg-lime-400 px-5 py-3 text-sm font-semibold text-lime-950 shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-lime-300"
+                    className="inline-flex items-center justify-center rounded-full bg-lime-500 px-5 py-3 text-sm font-semibold text-lime-950 shadow-md transition duration-300 hover:-translate-y-0.5 hover:bg-lime-300"
                   >
                     <FaWhatsapp className="mr-2 text-base" />
                     WhatsApp Us

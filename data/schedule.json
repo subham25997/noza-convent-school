@@ -1,0 +1,90 @@
+{
+  "year": 2026,
+  "examName": "Half-Yearly Examination",
+  "dates": [
+    "2026-09-14",
+    "2026-09-15",
+    "2026-09-16",
+    "2026-09-17",
+    "2026-09-18"
+  ],
+  "classes": [
+    {
+      "class": "Nursery",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "10:30" },
+        { "shift": 2, "from": "11:00", "to": "12:30" }
+      ]
+    },
+    {
+      "class": "Class 1",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "11:00" },
+        { "shift": 2, "from": "11:30", "to": "13:30" }
+      ]
+    },
+    {
+      "class": "Class 2",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "11:00" },
+        { "shift": 2, "from": "11:30", "to": "13:30" }
+      ]
+    },
+    {
+      "class": "Class 3",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "11:30" },
+        { "shift": 2, "from": "12:00", "to": "14:30" }
+      ]
+    },
+    {
+      "class": "Class 4",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "11:30" },
+        { "shift": 2, "from": "12:00", "to": "14:30" }
+      ]
+    },
+    {
+      "class": "Class 5",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "11:30" },
+        { "shift": 2, "from": "12:00", "to": "14:30" }
+      ]
+    },
+    {
+      "class": "Class 6",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "12:00" },
+        { "shift": 2, "from": "12:30", "to": "15:30" }
+      ]
+    },
+    {
+      "class": "Class 7",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "12:00" },
+        { "shift": 2, "from": "12:30", "to": "15:30" }
+      ]
+    },
+    {
+      "class": "Class 8",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "12:00" },
+        { "shift": 2, "from": "12:30", "to": "15:30" }
+      ]
+    },
+    {
+      "class": "Class 9",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "12:00" },
+        { "shift": 2, "from": "12:30", "to": "15:30" }
+      ]
+    },
+    {
+      "class": "Class 10",
+      "shifts": [
+        { "shift": 1, "from": "09:00", "to": "12:00" },
+        { "shift": 2, "from": "12:30", "to": "15:30" }
+      ]
+    }
+  ]
+}
