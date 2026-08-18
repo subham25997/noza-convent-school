@@ -2,9 +2,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
-// import NoticeWidget from "@/components/Notifications";
+import NoticeWidget from "@/components/Notifications";
 import { Toaster } from "react-hot-toast";
-// import { getNotifications } from "@/services/notifications";
+import { getNotifications } from "@/services/notifications";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -22,7 +22,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const { notifications: notificationItems } = await getNotifications();
+  const notificationResult = await getNotifications();
+  const notificationItems = notificationResult.success
+    ? notificationResult.notifications
+    : [];
 
   return (
     <html lang="en">
@@ -32,7 +35,7 @@ export default async function RootLayout({
 
         <Footer />
 
-        {/* <NoticeWidget notifications={notificationItems} /> */}
+        <NoticeWidget notifications={notificationItems} />
         <FloatingActions />
         <Toaster
           position="top-center"

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiBell, FiX } from "react-icons/fi";
 import type { NotificationItem } from "@/services/notifications";
@@ -10,34 +11,52 @@ type NoticeWidgetProps = {
   notifications?: NotificationItem[];
 };
 
-export default function NoticeWidget({ notifications = [] }: NoticeWidgetProps) {
-  const [open, setOpen] = useState(true);
+export default function NoticeWidget({
+  notifications = [],
+}: NoticeWidgetProps) {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [hasAutoOpened, setHasAutoOpened] = useState(false);
 
-  const noticeItems = notifications.length ? notifications : [];
-  const newCount = noticeItems.filter((n) => n.isNew).length;
+  const newCount = notifications.filter((n) => n.isNew).length;
+
+  // Auto-open once, only for visitors landing on the home page — never on
+  // internal navigation, and never more than once per visit.
+  useEffect(() => {
+    if (!hasAutoOpened && pathname === "/" && notifications.length > 0) {
+      setOpen(true);
+      setHasAutoOpened(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const closeNotification = () => setOpen(false);
   const toggleNotification = () => setOpen((prev) => !prev);
+
+  // Nothing to say, nothing to show — a permanently empty bell is just clutter.
+  if (notifications.length === 0) {
+    return null;
+  }
 
   return (
     <div>
       <button
         onClick={toggleNotification}
-        className="fixed bottom-28 right-6 flex items-center justify-center rounded-full bg-blue-500 p-5 w-16 h-16 text-white shadow-xl transition-all duration-300 hover:bg-amber-500 hover:shadow-2xl"
-        style={{ zIndex: 9999 }}
+        className="fixed bottom-6 left-6 flex h-14 w-14 items-center justify-center rounded-full bg-amber-500 text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-600 hover:shadow-xl"
+        style={{ zIndex: 50 }}
         aria-label={open ? "Close notices" : "Open notices"}
         title={open ? "Close notices" : "Open notices"}
       >
         <motion.span
-          animate={newCount > 0 ? { scale: [1, 1.12, 1], opacity: [1, 0.75, 1] } : {}}
-          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+          animate={newCount > 0 && !open ? { scale: [1, 1.1, 1] } : {}}
+          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
           className="flex items-center justify-center"
         >
-          <FiBell size={28} />
+          {open ? <FiX size={24} /> : <FiBell size={24} />}
         </motion.span>
 
-        {newCount > 0 && (
-          <span className="absolute -top-1 -right-1 inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-red-600 px-1.5 text-[14px] font-semibold text-white shadow-sm">
+        {newCount > 0 && !open && (
+          <span className="absolute -top-1 -right-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-lime-500 px-1 text-[11px] font-bold text-white ring-2 ring-white">
             {newCount}
           </span>
         )}
@@ -46,67 +65,65 @@ export default function NoticeWidget({ notifications = [] }: NoticeWidgetProps) 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 60, scale: 0.95 }}
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40 }}
-            transition={{ duration: 0.35 }}
-            className="fixed bottom-24 right-6 min-w-68 overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.6)] sm:w-[24rem]"
-            style={{ zIndex: 9999 }}
+            exit={{ opacity: 0, y: 12, scale: 0.97 }}
+            transition={{ duration: 0.25 }}
+            className="fixed bottom-24 left-6 w-[calc(100vw-3rem)] max-w-sm overflow-hidden rounded-3xl border border-slate-800 shadow-2xl sm:w-96"
+            style={{ zIndex: 50 }}
           >
-            <div className="flex items-center justify-between bg-gray-900 px-5 pb-3 pt-4">
+            <div className="flex items-center justify-between bg-slate-900 px-5 py-4">
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-semibold text-white">Notices</h3>
-                <span className="text-lg font-semibold text-orange-400">({newCount})</span>
+                <FiBell className="text-amber-400" size={18} />
+                <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-white">
+                  Notices
+                </h3>
+                {newCount > 0 && (
+                  <span className="rounded-full bg-lime-500 px-2 py-0.5 text-[11px] font-bold text-white">
+                    {newCount} new
+                  </span>
+                )}
               </div>
 
               <button
-                aria-label="Close Notifications"
+                aria-label="Close notifications"
                 onClick={closeNotification}
-                className="p-1 text-white transition hover:text-orange-400"
+                className="rounded-full p-1 text-slate-400 transition hover:bg-white/10 hover:text-white"
               >
                 <FiX size={18} />
               </button>
             </div>
 
-            <div className="relative h-100 overflow-auto bg-gray-800">
-              {noticeItems.length > 0 ? (
-                <div className="absolute w-full">
-                  {noticeItems.map((notice) => (
-                    <Link
-                      href={`/notifications/${notice.slug}`}
-                      key={notice.slug}
-                      onClick={closeNotification}
-                      className="flex flex-col gap-2 border-b border-gray-700 px-5 py-4 text-left transition hover:bg-gray-700/70"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-sm font-medium leading-relaxed text-white">{notice.title}</p>
-                          <p className="mt-1 text-xs text-gray-400">{notice.summary}</p>
-                        </div>
+            <div className="max-h-96 overflow-y-auto bg-slate-900">
+              {notifications.map((notice) => (
+                <Link
+                  href={`/notifications/${notice.slug}`}
+                  key={notice.slug}
+                  onClick={closeNotification}
+                  className="flex flex-col gap-2 border-t border-slate-800 px-5 py-4 text-left transition hover:bg-slate-800"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="text-sm font-medium leading-relaxed text-white">
+                      {notice.title}
+                    </p>
 
-                        {notice.isNew && (
-                          <motion.span
-                            animate={{ opacity: [1, 0.45, 1], scale: [1, 1.05, 1] }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-                            className="rounded bg-amber-500 px-2 py-0.75 text-[10px] font-semibold text-white"
-                          >
-                            NEW
-                          </motion.span>
-                        )}
-                      </div>
+                    {notice.isNew && (
+                      <span className="flex-shrink-0 rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-400">
+                        New
+                      </span>
+                    )}
+                  </div>
 
-                      <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-gray-500">
-                        <span>{notice.category}</span>
-                        <span>{notice.publishedAt || "Recently posted"}</span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <div className="flex h-full items-center justify-center px-6 text-center text-sm text-gray-300">
-                  No notices are available at the moment.
-                </div>
-              )}
+                  <p className="text-xs leading-relaxed text-slate-400">
+                    {notice.summary}
+                  </p>
+
+                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-slate-500">
+                    <span>{notice.category}</span>
+                    <span>{notice.publishedAt || "Recently posted"}</span>
+                  </div>
+                </Link>
+              ))}
             </div>
           </motion.div>
         )}
