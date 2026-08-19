@@ -30,28 +30,35 @@ function formatDate(iso: string) {
 
 /** Amber/lime/slate palette, as RGB triples for jsPDF's fillColor/textColor APIs. */
 const PDF_COLORS = {
-  amber500: [245, 158, 11] as const,
+  amber400: [251, 191, 36] as const,
+  amber600: [217, 119, 6] as const,
   amber700: [180, 83, 9] as const,
-  lime600: [101, 163, 13] as const,
+  lime500: [132, 204, 22] as const,
+  lime700: [77, 124, 15] as const,
   slate900: [15, 23, 42] as const,
   slate600: [71, 85, 105] as const,
+  slate400: [148, 163, 184] as const,
   slate200: [226, 232, 240] as const,
-  slate50: [248, 250, 252] as const,
+  slate100: [241, 245, 249] as const,
   white: [255, 255, 255] as const,
 };
 
-function buildCellText(
-  entry: Schedule["classes"][number]["days"][number] | undefined,
-): string {
-  if (!entry) return "-";
+type Entry = Schedule["classes"][number]["days"][number];
+
+/** Mirrors the on-screen cell: subject / time range / SHIFT label, or the holiday note. */
+function buildCellText(entry: Entry | undefined): string {
+  if (!entry) return "—";
 
   if (entry.slots.length > 0) {
-    const lines = entry.slots.map((slot) => {
-      const timeLine = `Shift ${slot.shift} - ${slot.from}-${slot.to}`;
-      return slot.subject ? `${slot.subject}\n${timeLine}` : timeLine;
+    const blocks = entry.slots.map((slot) => {
+      const lines: string[] = [];
+      if (slot.subject) lines.push(slot.subject);
+      lines.push(`${slot.from} – ${slot.to}`);
+      lines.push(`SHIFT ${slot.shift}`);
+      return lines.join("\n");
     });
-    if (entry.note) lines.push(entry.note);
-    return lines.join("\n\n");
+    if (entry.note) blocks.push(entry.note);
+    return blocks.join("\n\n");
   }
 
   return entry.note || "Holiday";
@@ -60,42 +67,59 @@ function buildCellText(
 function exportScheduleAsPdf(schedule: Schedule) {
   const doc = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
   const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
   const yearLabel = formatAcademicYear(schedule.year);
 
-  // ---- Header ----
+  // ---- Header (same hierarchy as the card header on screen) ----
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.setTextColor(...PDF_COLORS.slate900);
-  doc.text("Noza Convent School", 40, 42);
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(...PDF_COLORS.amber700);
-  doc.text(`Academic Year ${yearLabel}`, 40, 58);
+  doc.setFontSize(8);
+  doc.setTextColor(...PDF_COLORS.slate400);
+  doc.text(`ACADEMIC YEAR ${yearLabel.toUpperCase()}`, 40, 44, {
+    charSpace: 1.4,
+  });
 
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
+  doc.setFontSize(18);
   doc.setTextColor(...PDF_COLORS.slate900);
-  doc.text(schedule.examName, 40, 78);
+  doc.text(schedule.examName, 40, 66);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
-  doc.setTextColor(...PDF_COLORS.slate600);
+  doc.setTextColor(...PDF_COLORS.slate400);
   const generatedOn = new Date().toLocaleDateString("en-IN", {
     day: "2-digit",
     month: "short",
     year: "numeric",
   });
-  doc.text(`Generated on ${generatedOn}`, pageWidth - 40, 42, {
+  doc.text("Noza Convent School", pageWidth - 40, 44, { align: "right" });
+  doc.text(`Generated on ${generatedOn}`, pageWidth - 40, 60, {
     align: "right",
+  });
+
+  // Legend, matching the on-screen pills
+  const legend: Array<{ label: string; color: readonly number[] }> = [
+    { label: "Exam", color: PDF_COLORS.amber400 },
+    { label: "Prep / Holiday", color: PDF_COLORS.lime500 },
+    { label: "No exam", color: PDF_COLORS.slate200 },
+  ];
+  let legendX = 40;
+  const legendY = 82;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  legend.forEach(({ label, color }) => {
+    doc.setFillColor(color[0], color[1], color[2]);
+    doc.roundedRect(legendX, legendY - 6, 2.5, 8, 1.25, 1.25, "F");
+    doc.setTextColor(...PDF_COLORS.slate600);
+    doc.text(label, legendX + 8, legendY);
+    legendX += doc.getTextWidth(label) + 30;
   });
 
   // ---- Table ----
   const head = [
-    "Class",
+    "CLASS",
     ...schedule.dates.map((iso) => {
       const d = formatDate(iso);
-      return `${d.weekday}\n${d.day} ${d.month}`;
+      return `${d.day} ${d.month}\n${d.isToday ? "TODAY" : d.weekday.toUpperCase()}`;
     }),
   ];
 
@@ -107,58 +131,166 @@ function exportScheduleAsPdf(schedule: Schedule) {
     ];
   });
 
+  // Track which body cells are exam vs holiday so we can draw the accent bar.
+  const cellKind = schedule.classes.map((cls) => {
+    const dayByDate = new Map(cls.days.map((d) => [d.date, d]));
+    return schedule.dates.map((date) => {
+      const entry = dayByDate.get(date);
+      if (!entry) return "none" as const;
+      return entry.slots.length > 0 ? ("exam" as const) : ("holiday" as const);
+    });
+  });
+
+  // ---- Separator between header/legend and table ----
+  doc.setDrawColor(
+    PDF_COLORS.slate200[0],
+    PDF_COLORS.slate200[1],
+    PDF_COLORS.slate200[2],
+  );
+  doc.setLineWidth(0.9);
+  doc.line(40, 94, pageWidth - 40, 94);
+
+  // ---- Table ----
   autoTable(doc, {
-    startY: 96,
+    startY: 104,
     head: [head],
     body,
-    theme: "grid",
+    theme: "plain",
+
     styles: {
       font: "helvetica",
       fontSize: 8,
-      cellPadding: 6,
+      cellPadding: {
+        top: 9,
+        right: 8,
+        bottom: 9,
+        left: 12,
+      },
       textColor: PDF_COLORS.slate600 as unknown as [number, number, number],
-      lineColor: PDF_COLORS.slate200 as unknown as [number, number, number],
-      lineWidth: 0.5,
       valign: "top",
+      lineWidth: 0,
     },
+
     headStyles: {
-      fillColor: PDF_COLORS.amber500 as unknown as [number, number, number],
-      textColor: PDF_COLORS.white as unknown as [number, number, number],
+      fillColor: PDF_COLORS.white as unknown as [number, number, number],
+      textColor: PDF_COLORS.slate900 as unknown as [number, number, number],
       fontStyle: "bold",
-      fontSize: 8,
-      halign: "center",
+      fontSize: 9,
+      halign: "left",
+      cellPadding: {
+        top: 6,
+        right: 8,
+        bottom: 10,
+        left: 12,
+      },
     },
+
     columnStyles: {
       0: {
         fontStyle: "bold",
+        fontSize: 10,
         textColor: PDF_COLORS.slate900 as unknown as [number, number, number],
-        fillColor: PDF_COLORS.slate50 as unknown as [number, number, number],
+        cellWidth: 92,
+        cellPadding: {
+          top: 9,
+          right: 8,
+          bottom: 9,
+          left: 6,
+        },
       },
     },
-    alternateRowStyles: {
-      fillColor: [255, 251, 235] as unknown as [number, number, number], // amber-50
+
+    margin: {
+      left: 40,
+      right: 40,
+      bottom: 46,
     },
-    margin: { left: 40, right: 40 },
+
+    // ---- Header/body text styling ----
+    didParseCell(data) {
+      if (data.section !== "head") return;
+
+      data.cell.styles.textColor = PDF_COLORS.slate900 as unknown as [
+        number,
+        number,
+        number,
+      ];
+    },
+
+    // ---- Exam / holiday accent bars ----
+    willDrawCell(data) {
+      if (data.section !== "body" || data.column.index === 0) return;
+
+      const kind = cellKind[data.row.index]?.[data.column.index - 1];
+
+      if (kind === "none") return;
+
+      const color = kind === "exam" ? PDF_COLORS.amber400 : PDF_COLORS.lime500;
+
+      doc.setFillColor(color[0], color[1], color[2]);
+
+      doc.rect(
+        data.cell.x + 6,
+        data.cell.y + 8,
+        1.6,
+        Math.max(data.cell.height - 16, 10),
+        "F",
+      );
+
+      if (kind === "holiday") {
+        doc.setTextColor(
+          PDF_COLORS.lime700[0],
+          PDF_COLORS.lime700[1],
+          PDF_COLORS.lime700[2],
+        );
+      } else {
+        doc.setTextColor(
+          PDF_COLORS.slate900[0],
+          PDF_COLORS.slate900[1],
+          PDF_COLORS.slate900[2],
+        );
+      }
+    },
+
+    // ---- Table separators ----
+    didDrawCell(data) {
+      const isHeadRow = data.section === "head";
+
+      const drawColor = isHeadRow ? PDF_COLORS.slate200 : PDF_COLORS.slate100;
+
+      doc.setDrawColor(drawColor[0], drawColor[1], drawColor[2]);
+
+      // Stronger separator under the table header
+      doc.setLineWidth(isHeadRow ? 0.9 : 0.5);
+
+      doc.line(
+        data.cell.x,
+        data.cell.y + data.cell.height,
+        data.cell.x + data.cell.width,
+        data.cell.y + data.cell.height,
+      );
+    },
   });
 
   // ---- Footer ----
   const pageCount = doc.getNumberOfPages();
   for (let i = 1; i <= pageCount; i += 1) {
     doc.setPage(i);
+    doc.setDrawColor(...PDF_COLORS.slate100);
+    doc.setLineWidth(0.5);
+    doc.line(40, pageHeight - 34, pageWidth - 40, pageHeight - 34);
+
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    doc.setTextColor(...PDF_COLORS.slate600);
+    doc.setFontSize(7.5);
+    doc.setTextColor(...PDF_COLORS.slate400);
     doc.text(
       "Maintained by the school office. Not every class sits every date some have fewer exams or a preparation day instead.",
       40,
-      doc.internal.pageSize.getHeight() - 20,
+      pageHeight - 20,
     );
-    doc.text(
-      `Page ${i} of ${pageCount}`,
-      pageWidth - 40,
-      doc.internal.pageSize.getHeight() - 20,
-      { align: "right" },
-    );
+    doc.text(`Page ${i} of ${pageCount}`, pageWidth - 40, pageHeight - 20, {
+      align: "right",
+    });
   }
 
   const filename = `${schedule.examName}-${yearLabel}`
@@ -213,8 +345,6 @@ export default function ScheduleTable() {
     if (!schedule || isExporting) return;
     setIsExporting(true);
     try {
-      // Yield a frame so the button's loading state actually paints before
-      // the (synchronous, potentially heavy) PDF generation runs.
       await new Promise((resolve) => requestAnimationFrame(resolve));
       exportScheduleAsPdf(schedule);
     } finally {
@@ -275,8 +405,8 @@ export default function ScheduleTable() {
       className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04),0_24px_60px_-40px_rgba(15,23,42,0.35)]"
     >
       {/* ================= HEADER ================= */}
-      <div className="border-b border-slate-100 px-6 py-7 sm:px-9 sm:py-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div className="border-b border-slate-100 px-5 py-6 sm:px-9 sm:py-8">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-start gap-4">
             <div className="grid size-12 flex-shrink-0 place-items-center rounded-2xl bg-amber-50 text-amber-700 ring-1 ring-lime-100">
               <BiCalendarCheck className="text-2xl" aria-hidden />
@@ -291,52 +421,41 @@ export default function ScheduleTable() {
             </div>
           </div>
 
-          <div className="flex flex-col items-start gap-3 sm:items-end">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:items-end">
             <button
               type="button"
               onClick={handleExport}
               disabled={isExporting}
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-[13px] font-semibold text-slate-700 shadow-sm transition hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:py-2 sm:text-xs"
             >
               {isExporting ? (
-                <BiLoaderAlt className="animate-spin text-sm" aria-hidden />
+                <BiLoaderAlt className="animate-spin text-base" aria-hidden />
               ) : (
-                <BiDownload className="text-sm" aria-hidden />
+                <BiDownload className="text-base" aria-hidden />
               )}
-              {isExporting ? "Preparing PDF..." : "Export as PDF"}
+              {isExporting ? "Preparing PDF…" : "Download PDF"}
             </button>
 
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
-              <span className="flex items-center gap-2">
+            <div className="-mx-1 flex items-center gap-2 overflow-x-auto px-1 pb-0.5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:justify-end sm:overflow-visible sm:px-0">
+              {[
+                { label: "Exam", dot: "bg-amber-500" },
+                { label: "Prep / Holiday", dot: "bg-lime-500" },
+                { label: "No exam", dot: "bg-slate-300" },
+              ].map(({ label, dot }) => (
                 <span
-                  className="h-3 w-1 rounded-full bg-amber-500"
-                  aria-hidden
-                />
-                Exam
-              </span>
-              <span className="flex items-center gap-2">
-                <span
-                  className="h-3 w-1 rounded-full bg-lime-500"
-                  aria-hidden
-                />
-                Prep / Holiday
-              </span>
-              <span className="flex items-center gap-2">
-                <span
-                  className="h-3 w-1 rounded-full bg-slate-200"
-                  aria-hidden
-                />
-                No exam
-              </span>
+                  key={label}
+                  className="inline-flex flex-shrink-0 items-center gap-2 rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1.5 text-[11px] font-medium text-slate-600"
+                >
+                  <span
+                    className={`h-2.5 w-1 rounded-full ${dot}`}
+                    aria-hidden
+                  />
+                  {label}
+                </span>
+              ))}
             </div>
           </div>
         </div>
-
-        <p className="mt-6 max-w-3xl text-xs leading-relaxed text-slate-500 sm:text-[13px]">
-          Maintained by the school office. Not every class sits every date some
-          have fewer exams or a preparation day instead. Updates appear here
-          automatically.
-        </p>
       </div>
 
       {/* ================= TABLE ================= */}
