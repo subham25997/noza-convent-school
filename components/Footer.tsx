@@ -8,11 +8,11 @@ import { CONTACT } from "@/config/contact";
 
 const quickLinks = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Academics", href: "/academics/curriculum" },
+  { name: "About Us", href: "/about" },
+  { name: "Fee Structure", href: "/admission/fee-structure" },
   { name: "Examination Schedule", href: "/academics/exam-schedule" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
+  { name: "Academic Calendar", href: "/academics/calendar" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 const socialLinks = [
